@@ -109,7 +109,7 @@ jobs:
           IMAGE_TAG=${IMAGE_TAG#*/}
           IMAGE_TAG=$(echo $IMAGE_TAG | sed -e "s#^v##")
           echo "Using IMAGE_TAG: $IMAGE_TAG"
-          docker build \
+          docker build -f app.Dockerfile \
             -t docker.pkg.github.com/hedzr/$IMAGE_NAME:$IMAGE_TAG \
             -t docker.pkg.github.com/hedzr/$IMAGE_NAME:latest \
             -t hedzr/$IMAGE_NAME:$IMAGE_TAG \

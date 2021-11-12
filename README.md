@@ -87,6 +87,7 @@ Following the documentation at [dmgk/faker](https://github.com/dmgk/faker) too.
 To run the CLI app:
 
 ```bash
+# go install -v github.com/swaggo/swag/cmd/swag
 go generate ./...          # run it once at least, for gen the swagger-doc files from skeletons
 go run ./cli/app/cli/app   # build the mainly main.go
 ```
