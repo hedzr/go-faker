@@ -3,13 +3,13 @@ package app
 //goland:noinspection GoNameStartsWithPackageName
 const (
 	// AppName const
-	AppName = "your-starter"
+	AppName = "faker"
 	// AppModuleName const
-	AppModuleName = "your-apps"
+	AppModuleName = "faked-generator"
 	// AppTitle const
-	AppTitle = "app - go starter"
+	AppTitle = "faked generator"
 	// AppDesc const
-	AppDesc = "app - go starter program"
+	AppDesc = "faker is an effective devops tool. It make an demo application for `cmdr`."
 	// Version const
 	Version = "0.1.21"
 	// VersionInt const

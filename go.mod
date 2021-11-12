@@ -18,4 +18,5 @@ require (
 	github.com/hedzr/logex v1.3.22
 	github.com/swaggo/swag v1.7.1
 	gopkg.in/hedzr/errors.v2 v2.1.5
+	syreclabs.com/go/faker v1.2.3
 )

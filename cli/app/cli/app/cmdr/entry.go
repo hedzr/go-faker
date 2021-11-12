@@ -1,14 +1,12 @@
 package cmdrrel
 
 import (
-	"github.com/hedzr/go-faker/cli/app"
-	"github.com/hedzr/go-faker/internal"
-	"github.com/hedzr/go-faker/internal/core"
 	"fmt"
 	"github.com/hedzr/cmdr"
-	"github.com/hedzr/cmdr-addons/pkg/plugins/trace"
-	"github.com/hedzr/cmdr/plugin/pprof"
 	"github.com/hedzr/cmdr/tool"
+	"github.com/hedzr/go-faker/cli/app"
+	"github.com/hedzr/go-faker/cli/app/cli/app/logic"
+	"github.com/hedzr/go-faker/internal"
 	"github.com/hedzr/log"
 	"github.com/hedzr/logex"
 	"github.com/hedzr/logex/build"
@@ -17,9 +15,9 @@ import (
 
 const (
 	// appName   = "go-faker"
-	copyright = "go-faker - cmdr series"
-	desc      = "go-faker is an effective devops tool. It make an demo application for `cmdr`."
-	longDesc  = "go-faker is an effective devops tool. It make an demo application for `cmdr`."
+	copyright = "go-faker - A faked records generator - cmdr series"
+	desc      = "faker is an faked records generator."
+	longDesc  = "faker is an faked records generator. It makes an demo application for `cmdr`."
 	examples  = `
 $ {{.AppName}} gen shell [--bash|--zsh|--auto]
   generate bash/shell completion scripts
@@ -41,7 +39,7 @@ $ {{.AppName}} --help
 func Entry() {
 
 	if err := cmdr.Exec(buildRootCmd(),
-		trace.WithTraceEnable(defaultTraceEnabled),
+		//trace.WithTraceEnable(defaultTraceEnabled),
 		cmdr.WithUnhandledErrorHandler(onUnhandledErrorHandler),
 		cmdr.WithLogx(build.New(build.NewLoggerConfigWith(defaultDebugEnabled, defaultLoggerBackend, defaultLoggerLevel))),
 
@@ -56,7 +54,7 @@ func Entry() {
 		optHideGenerateCmd,
 		//optAddTraceOption,
 		//optAddServerExtOption,
-		pprof.GetCmdrProfilingOptions(),
+		//pprof.GetCmdrProfilingOptions(),
 	); err != nil {
 		log.Fatalf("error occurs in app running: %+v\n", err)
 	}
@@ -104,10 +102,12 @@ func buildRootCmd() (rootCmd *cmdr.RootCommand) {
 		Description("Enables the unhandled exception handler?").
 		AttachTo(root)
 
-	core.AttachToCmdr(root.RootCmdOpt())
+	// core.AttachToCmdr(root.RootCmdOpt())
+
+	logic.AttachToCmdr(root.RootCmdOpt())
 
 	//soundex(root)
-	panicTest(root)
+	//panicTest(root)
 
 	//pprof.AttachToCmdr(root.RootCmdOpt())
 	return
