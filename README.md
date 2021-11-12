@@ -1,6 +1,24 @@
 # hedzr/go-faker
 
 [![Go](https://github.com/hedzr/go-faker/actions/workflows/go.yml/badge.svg)](https://github.com/hedzr/go-faker/actions/workflows/go.yml)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/hedzr/go-faker.svg?label=release)](https://github.com/hedzr/go-faker/releases)
+[![](https://img.shields.io/badge/go-dev-green)](https://pkg.go.dev/github.com/hedzr/go-faker)
+| ![Docker Pulls](https://img.shields.io/docker/pulls/hedzr/faker)
+![Docker Image Version (latest semver)](https://img.shields.io/docker/v/hedzr/faker)
+![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/hedzr/faker)
+
+<!-- [![GitHub tag](https://img.shields.io/github/tag/hedzr/consul-tags.svg)]() -->
+<!-- [![ImageLayers Size](https://img.shields.io/imagelayers/image-size/hedzr/consul-tags/latest.svg)]() -->
+
+<!-- [![GitHub version](https://badge.fury.io/gh/hedzr%2Fconsul-tags.svg)](https://badge.fury.io/gh/hedzr%2Fconsul-tags)
+-->
+<!--
+[![license](https://img.shields.io/github/license/hedzr/go-faker.svg)](https://pkg.go.dev/github.com/hedzr/go-faker)
+[![go.dev](https://img.shields.io/badge/go.dev-reference-green)](https://pkg.go.dev/github.com/hedzr/go-faker)
+[![Go Report Card](https://goreportcard.com/badge/github.com/hedzr/go-faker)](https://goreportcard.com/report/github.com/hedzr/go-faker)
+[![codecov](https://codecov.io/gh/hedzr/go-faker/branch/master/graph/badge.svg)](https://codecov.io/gh/hedzr/go-faker)
+[![Coverage Status](https://coveralls.io/repos/github/hedzr/go-faker/badge.svg?branch=master)](https://coveralls.io/github/hedzr/go-faker?branch=master)
+-->
 
 A simple CLI app based [cmdr](https://github.com/hedzr/cmdr) and golang.
 
