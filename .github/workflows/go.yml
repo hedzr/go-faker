@@ -96,35 +96,35 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
 
-      # - name: Docker Build
-      #   #if: startsWith(github.ref, 'refs/tags/v') || contains(github.ref, '/master')
-      #   if: startsWith(github.ref, 'refs/tags/v')
-      #   env:
-      #     HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
-      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     IMAGE_NAME: cmdr-fluent
-      #     IMAGE_TAG:
-      #   run: |
-      #     IMAGE_TAG=${GITHUB_REF#*/}
-      #     IMAGE_TAG=${IMAGE_TAG#*/}
-      #     IMAGE_TAG=$(echo $IMAGE_TAG | sed -e "s#^v##")
-      #     echo "Using IMAGE_TAG: $IMAGE_TAG"
-      #     docker build \
-      #       -t docker.pkg.github.com/hedzr/cmdr/$IMAGE_NAME:$IMAGE_TAG \
-      #       -t docker.pkg.github.com/hedzr/cmdr/$IMAGE_NAME:latest \
-      #       -t hedzr/$IMAGE_NAME:$IMAGE_TAG \
-      #       -t hedzr/$IMAGE_NAME:latest \
-      #       .
-      #     echo $GH_TOKEN | docker login docker.pkg.github.com -u hedzr --password-stdin
-      #     # docker tag IMAGE_ID docker.pkg.github.com/hedzr/cmdr/$IMAGE_NAME:$VERSION
-      #     docker push docker.pkg.github.com/hedzr/cmdr/$IMAGE_NAME:$IMAGE_TAG
-      #     docker push docker.pkg.github.com/hedzr/cmdr/$IMAGE_NAME:latest
-      #     #
-      #     echo $HUB_TOKEN | docker login -u hedzr --password-stdin
-      #     # docker tag docker.pkg.github.com/hedzr/cmdr/$IMAGE_NAME:latest hedzr/$IMAGE_NAME:$IMAGE_TAG
-      #     # docker tag docker.pkg.github.com/hedzr/cmdr/$IMAGE_NAME:latest hedzr/$IMAGE_NAME:latest
-      #     docker push hedzr/$IMAGE_NAME:$IMAGE_TAG
-      #     docker push hedzr/$IMAGE_NAME:latest
+      - name: Docker Build
+        #if: startsWith(github.ref, 'refs/tags/v') || contains(github.ref, '/master')
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          IMAGE_NAME: cmdr-fluent
+          IMAGE_TAG:
+        run: |
+          IMAGE_TAG=${GITHUB_REF#*/}
+          IMAGE_TAG=${IMAGE_TAG#*/}
+          IMAGE_TAG=$(echo $IMAGE_TAG | sed -e "s#^v##")
+          echo "Using IMAGE_TAG: $IMAGE_TAG"
+          docker build \
+            -t docker.pkg.github.com/hedzr/cmdr/$IMAGE_NAME:$IMAGE_TAG \
+            -t docker.pkg.github.com/hedzr/cmdr/$IMAGE_NAME:latest \
+            -t hedzr/$IMAGE_NAME:$IMAGE_TAG \
+            -t hedzr/$IMAGE_NAME:latest \
+            .
+          echo $GH_TOKEN | docker login docker.pkg.github.com -u hedzr --password-stdin
+          # docker tag IMAGE_ID docker.pkg.github.com/hedzr/cmdr/$IMAGE_NAME:$VERSION
+          docker push docker.pkg.github.com/hedzr/cmdr/$IMAGE_NAME:$IMAGE_TAG
+          docker push docker.pkg.github.com/hedzr/cmdr/$IMAGE_NAME:latest
+          #
+          echo $HUB_TOKEN | docker login -u hedzr --password-stdin
+          # docker tag docker.pkg.github.com/hedzr/cmdr/$IMAGE_NAME:latest hedzr/$IMAGE_NAME:$IMAGE_TAG
+          # docker tag docker.pkg.github.com/hedzr/cmdr/$IMAGE_NAME:latest hedzr/$IMAGE_NAME:latest
+          docker push hedzr/$IMAGE_NAME:$IMAGE_TAG
+          docker push hedzr/$IMAGE_NAME:latest
 
       - name: Build
         run: |
@@ -178,27 +178,27 @@ jobs:
           file_glob: true
           #body:
 
-      # - name: Create Release
-      #   id: create_release
-      #   uses: actions/create-release@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     tag_name: ${{ github.ref }}
-      #     release_name: Release ${{ github.ref }}
-      #     draft: false
-      #     prerelease: false
-      #
-      # - name: Upload Release Asset
-      #   id: upload-release-asset
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-      #     asset_path: bin/*
-      #     asset_name: my-artifact.zip
-      #     asset_content_type: application/zip
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: bin/*
+          asset_name: my-artifact.zip
+          asset_content_type: application/zip
 
   # notifies coveralls that all test jobs are finished
   finish:
