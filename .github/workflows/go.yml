@@ -117,19 +117,19 @@ jobs:
             --build-arg VERSION=$VERSION \
             --build-arg PORT=$PORT \
             --build-arg GOPROXY=https://goproxy.io,direct \
-            -t docker.pkg.github.com/hedzr/$IMAGE_NAME:$IMAGE_TAG \
-            -t docker.pkg.github.com/hedzr/$IMAGE_NAME:latest \
+            -t docker.pkg.github.com/hedzr/cli/$IMAGE_NAME:$IMAGE_TAG \
+            -t docker.pkg.github.com/hedzr/cli/$IMAGE_NAME:latest \
             -t hedzr/$IMAGE_NAME:$IMAGE_TAG \
             -t hedzr/$IMAGE_NAME:latest \
             .
           echo $GH_TOKEN | docker login docker.pkg.github.com -u hedzr --password-stdin
-          # docker tag IMAGE_ID docker.pkg.github.com/hedzr/$IMAGE_NAME:$VERSION
-          docker push docker.pkg.github.com/hedzr/$IMAGE_NAME:$IMAGE_TAG
-          docker push docker.pkg.github.com/hedzr/$IMAGE_NAME:latest
+          # docker tag IMAGE_ID docker.pkg.github.com/hedzr/cli/$IMAGE_NAME:$VERSION
+          docker push docker.pkg.github.com/hedzr/cli/$IMAGE_NAME:$IMAGE_TAG
+          docker push docker.pkg.github.com/hedzr/cli/$IMAGE_NAME:latest
           #
           echo $HUB_TOKEN | docker login -u hedzr --password-stdin
-          # docker tag docker.pkg.github.com/hedzr/$IMAGE_NAME:latest hedzr/$IMAGE_NAME:$IMAGE_TAG
-          # docker tag docker.pkg.github.com/hedzr/$IMAGE_NAME:latest hedzr/$IMAGE_NAME:latest
+          # docker tag docker.pkg.github.com/hedzr/cli/$IMAGE_NAME:latest hedzr/$IMAGE_NAME:$IMAGE_TAG
+          # docker tag docker.pkg.github.com/hedzr/cli/$IMAGE_NAME:latest hedzr/$IMAGE_NAME:latest
           docker push hedzr/$IMAGE_NAME:$IMAGE_TAG
           docker push hedzr/$IMAGE_NAME:latest
 
