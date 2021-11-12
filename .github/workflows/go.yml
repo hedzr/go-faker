@@ -107,6 +107,10 @@ jobs:
           PORT:
           VERSION:
         run: |
+          IMAGE_NAME="${GITHUB_REPOSITORY##*/}"
+          IMAGE_NAME=$(echo $IMAGE_NAME | sed 's/[go-]//g' | sed 's/[-go]//g' | tr '[:upper:]' '[:lower:]')
+          ACTOR=$(echo $GITHUB_ACTOR | tr '[:upper:]' '[:lower:]')
+          #
           IMAGE_TAG=${GITHUB_REF#*/}
           IMAGE_TAG=${IMAGE_TAG#*/}
           IMAGE_TAG=$(echo $IMAGE_TAG | sed -e "s#^v##")
@@ -117,24 +121,28 @@ jobs:
             --build-arg VERSION=$VERSION \
             --build-arg PORT=$PORT \
             --build-arg GOPROXY=https://goproxy.io,direct \
-            -t docker.pkg.github.com/hedzr/cli/$IMAGE_NAME:$IMAGE_TAG \
-            -t docker.pkg.github.com/hedzr/cli/$IMAGE_NAME:latest \
-            -t hedzr/$IMAGE_NAME:$IMAGE_TAG \
-            -t hedzr/$IMAGE_NAME:latest \
+            -t docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:$IMAGE_TAG \
+            -t docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:latest \
+            -t $ACTOR/$IMAGE_NAME:$IMAGE_TAG \
+            -t $ACTOR/$IMAGE_NAME:latest \
             .
           echo $GH_TOKEN | docker login docker.pkg.github.com -u hedzr --password-stdin
-          # docker tag IMAGE_ID docker.pkg.github.com/hedzr/cli/$IMAGE_NAME:$VERSION
-          docker push docker.pkg.github.com/hedzr/cli/$IMAGE_NAME:$IMAGE_TAG
-          docker push docker.pkg.github.com/hedzr/cli/$IMAGE_NAME:latest
+          # docker tag IMAGE_ID docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:$VERSION
+          docker push docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:$IMAGE_TAG
+          docker push docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:latest
           #
           echo $HUB_TOKEN | docker login -u hedzr --password-stdin
-          # docker tag docker.pkg.github.com/hedzr/cli/$IMAGE_NAME:latest hedzr/$IMAGE_NAME:$IMAGE_TAG
-          # docker tag docker.pkg.github.com/hedzr/cli/$IMAGE_NAME:latest hedzr/$IMAGE_NAME:latest
-          docker push hedzr/$IMAGE_NAME:$IMAGE_TAG
-          docker push hedzr/$IMAGE_NAME:latest
+          # docker tag docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:latest hedzr/$IMAGE_NAME:$IMAGE_TAG
+          # docker tag docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:latest hedzr/$IMAGE_NAME:latest
+          docker push $ACTOR/$IMAGE_NAME:$IMAGE_TAG
+          docker push $ACTOR/$IMAGE_NAME:latest
 
       - name: Build
         run: |
+          APP_NAME="${GITHUB_REPOSITORY##*/}"
+          APP_NAME=$(echo $APP_NAME | sed 's/[go-]//g' | sed 's/[-go]//g' | tr '[:upper:]' '[:lower:]')
+          ACTOR=$(echo $GITHUB_ACTOR | tr '[:upper:]' '[:lower:]')
+          #
           export GOSUMDB=off
           export GIT_REVISION="$(git rev-parse --short HEAD)"
           export GOVERSION="$(go version)"
@@ -160,8 +168,8 @@ jobs:
             for GOOS in windows linux darwin; do
               for GOARCH in amd64; do
                 suf=; if [[ $GOOS == "windows" ]]; then suf=".exe"; fi
-                go build -v -ldflags "$LDFLAGS" -o ./bin/$app-$GOOS-$GOARCH$suf ./$dir/$app/$dir/$app
-                gzip -f ./bin/$app-$GOOS-$GOARCH$suf
+                go build -v -ldflags "$LDFLAGS" -o ./bin/$APP_NAME-$GOOS-$GOARCH$suf ./$dir/$app/$dir/$app
+                gzip -f ./bin/$APP_NAME-$GOOS-$GOARCH$suf
               done
             done
           done
