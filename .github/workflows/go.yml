@@ -168,7 +168,8 @@ jobs:
             for GOOS in windows; do
               for GOARCH in amd64; do
                 suf=; if [[ $GOOS == "windows" ]]; then suf=".exe"; fi
-                go build -v -ldflags "$LDFLAGS" -o ./bin/$APP_NAME$suf ./$dir/$app/$dir/$app
+                GOOS-$GOOS GOARCH=$GOARCH go build -v -ldflags "$LDFLAGS" -o ./bin/$APP_NAME$suf ./$dir/$app/$dir/$app
+                chmod +x ./bin/$APP_NAME$suf
                 tar -czf ./bin/$APP_NAME-$GOOS-$GOARCH$suf.tgz ./bin/$APP_NAME$suf -Cci etc
                 rm -f ./bin/$APP_NAME$suf
               done
@@ -176,7 +177,8 @@ jobs:
             for GOOS in linux; do
               for GOARCH in amd64; do
                 suf=; if [[ $GOOS == "windows" ]]; then suf=".exe"; fi
-                go build -v -ldflags "$LDFLAGS" -o ./bin/$APP_NAME$suf ./$dir/$app/$dir/$app
+                GOOS-$GOOS GOARCH=$GOARCH go build -v -ldflags "$LDFLAGS" -o ./bin/$APP_NAME$suf ./$dir/$app/$dir/$app
+                chmod +x ./bin/$APP_NAME$suf
                 tar -czf ./bin/$APP_NAME-$GOOS-$GOARCH$suf.tgz ./bin/$APP_NAME$suf -Cci etc
                 rm -f ./bin/$APP_NAME$suf
               done
@@ -184,7 +186,8 @@ jobs:
             for GOOS in darwin; do
               for GOARCH in amd64 arm64; do
                 suf=; if [[ $GOOS == "windows" ]]; then suf=".exe"; fi
-                go build -v -ldflags "$LDFLAGS" -o ./bin/$APP_NAME$suf ./$dir/$app/$dir/$app
+                GOOS-$GOOS GOARCH=$GOARCH go build -v -ldflags "$LDFLAGS" -o ./bin/$APP_NAME$suf ./$dir/$app/$dir/$app
+                chmod +x ./bin/$APP_NAME$suf
                 tar -czf ./bin/$APP_NAME-$GOOS-$GOARCH$suf.tgz ./bin/$APP_NAME$suf -Cci etc
                 rm -f ./bin/$APP_NAME$suf
               done
