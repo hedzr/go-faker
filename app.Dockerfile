@@ -70,6 +70,7 @@ RUN export GOVER=$(go version) \
         	-X \"$W_PKG.Version=$VERSION\" -X \"$W_PKG.GoVersion=$GOVER\" " \
     && echo "Using APPNAME=$APPNAME VERSION=$VERSION" \
     && go install -v github.com/swaggo/swag/cmd/swag \
+    && go mod tidy \
     && go generate ./... \
     && CGO_ENABLED=0 go build -v -tags docker -tags k8s,istio -tags cmdr-apps \
        -ldflags "$LDFLAGS" \
