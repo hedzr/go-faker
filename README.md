@@ -30,7 +30,7 @@ Commands:
   i, internet                               generate Internet names
 ```
 
-### Usages
+### Basic Usages
 
 For example:
 
@@ -81,6 +81,27 @@ Options:
 
 Following the documentation at [dmgk/faker](https://github.com/dmgk/faker) too.
 
+
+
+### Installations & Usages
+
+#### via Homebrew
+
+#### via DockerHub or Github Docker Registry
+
+Pull the docker image:
+```bash
+# get docker image
+docker pull hedzr/faker
+docker pull ghcr.io/hedzr/faker
+```
+
+Run as a local app:
+
+```bash
+docker run -it --rm hedzr/faker --help
+docker run -it --rm hedzr/faker finance --mastercard
+```
 
 ## Getting Started (for Developer)
 
