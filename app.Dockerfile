@@ -62,16 +62,14 @@ RUN mkdir -p $TGT/var/lib/$APPNAME/conf.d \
 
 
 ENV GOPROXY="$GOPROXY"
-RUN echo "Using GOPROXY=$GOPROXY" && go mod download
+RUN echo "Using GOPROXY=$GOPROXY" \
+    && go mod download
 RUN export GOVER=$(go version) \
     && export VERSION="$(grep -E 'Version[ \t]+=[ \t]+' ./cli/app/doc.go|grep -Eo '[0-9.]+')" \
     && export LDFLAGS="-s -w \
         	-X \"$W_PKG.Buildstamp=$BUILDTIME\" -X \"$W_PKG.Githash=$GIT_REVISION\" \
         	-X \"$W_PKG.Version=$VERSION\" -X \"$W_PKG.GoVersion=$GOVER\" " \
     && echo "Using APPNAME=$APPNAME VERSION=$VERSION" \
-    && go install -v github.com/swaggo/swag/cmd/swag \
-    && go mod tidy \
-    && go generate ./... \
     && CGO_ENABLED=0 go build -v -tags docker -tags k8s,istio -tags cmdr-apps \
        -ldflags "$LDFLAGS" \
        -o $TGT/var/lib/$APPNAME/$APPNAME ./cli/app/cli/app
