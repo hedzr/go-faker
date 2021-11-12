@@ -11,7 +11,7 @@ const (
 	// AppDesc const
 	AppDesc = "faker is an effective devops tool. It make an demo application for `cmdr`."
 	// Version const
-	Version = "0.1.33"
+	Version = "0.1.53"
 	// VersionInt const
-	VersionInt = 0x000121
+	VersionInt = 0x000135
 )
