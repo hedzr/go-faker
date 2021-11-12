@@ -1,9 +1,9 @@
 package cmdrrel
 
 import (
-	"cmdr-starter/cli/app"
-	"cmdr-starter/internal"
-	"cmdr-starter/internal/core"
+	"github.com/hedzr/go-faker/cli/app"
+	"github.com/hedzr/go-faker/internal"
+	"github.com/hedzr/go-faker/internal/core"
 	"fmt"
 	"github.com/hedzr/cmdr"
 	"github.com/hedzr/cmdr-addons/pkg/plugins/trace"
@@ -16,10 +16,10 @@ import (
 )
 
 const (
-	// appName   = "%NAME%"
-	copyright = "cmdr-starter - cmdr series"
-	desc      = "cmdr-starter is an effective devops tool. It make an demo application for `cmdr`."
-	longDesc  = "cmdr-starter is an effective devops tool. It make an demo application for `cmdr`."
+	// appName   = "go-faker"
+	copyright = "go-faker - cmdr series"
+	desc      = "go-faker is an effective devops tool. It make an demo application for `cmdr`."
+	longDesc  = "go-faker is an effective devops tool. It make an demo application for `cmdr`."
 	examples  = `
 $ {{.AppName}} gen shell [--bash|--zsh|--auto]
   generate bash/shell completion scripts
@@ -94,7 +94,7 @@ func buildRootCmd() (rootCmd *cmdr.RootCommand) {
 		//AddGlobalPostAction(func(cmd *cmdr.Command, args []string) {
 		//	//fmt.Println("# global post-action 2")
 		//}).
-		Copyright(copyright, "cmdr-go-starter Authors").
+		Copyright(copyright, "hedzr").
 		Description(desc, longDesc).
 		Examples(examples)
 	rootCmd = root.RootCommand()

@@ -1,7 +1,7 @@
 package main
 
 import (
-	cmdrrel "cmdr-starter/cli/app/cli/app/cmdr"
+	cmdrrel "github.com/hedzr/go-faker/cli/app/cli/app/cmdr"
 )
 
 func init() {

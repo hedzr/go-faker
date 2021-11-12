@@ -1,4 +1,4 @@
-module cmdr-starter
+module github.com/hedzr/go-faker
 
 go 1.16
 
