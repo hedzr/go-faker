@@ -105,13 +105,25 @@ Following the documentation at [dmgk/faker](https://github.com/dmgk/faker) too.
 
 #### via Homebrew
 
+As a macOS user, you may install `faker` via Homebrew:
+
+```bash
+brew install hedzr/brew/faker
+```
+
+Or,
+
+```bash
+brew tap hedzr/brew
+brew install faker
+```
+
 #### via DockerHub or Github Docker Registry
 
 Pull the docker image:
 ```bash
-# get docker image
-docker pull hedzr/faker
-docker pull ghcr.io/hedzr/cli/faker
+docker pull hedzr/faker              # from Docker Hub
+docker pull ghcr.io/hedzr/cli/faker  # from Github Packages
 ```
 
 Run as a local app:
@@ -122,6 +134,10 @@ docker run -it --rm hedzr/faker finance --mastercard
 # or:
 docker run -it --rm ghcr.io/hedzr/cli/faker
 ```
+
+#### Else build from source codes
+
+
 
 ## Getting Started (for Developer)
 
