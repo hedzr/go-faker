@@ -37,8 +37,8 @@ jobs:
       - name: Test
         run: |
           GOSUMDB=off go mod download
-          go install -v github.com/swaggo/swag/cmd/swag
-          go generate ./...
+          #go install -v github.com/swaggo/swag/cmd/swag
+          #go generate ./...
           go build -v -o main ./cli/app/cli/app/
           rm main
           go test -v ./...
@@ -65,8 +65,8 @@ jobs:
             ${{ runner.os }}-go-
       - name: Test & Coverage
         run: |
-          go install -v github.com/swaggo/swag/cmd/swag
-          go generate ./...
+          #go install -v github.com/swaggo/swag/cmd/swag
+          #go generate ./...
           go test -v -coverprofile=profile.cov ./...
       - name: Send coverage
         uses: shogo82148/actions-goveralls@v1
@@ -160,8 +160,8 @@ jobs:
               GOVERSION: $GOVERSION
               BUILDTIME: $BUILDTIME
           EOF
-          go install -v github.com/swaggo/swag/cmd/swag
-          go generate ./...
+          #go install -v github.com/swaggo/swag/cmd/swag
+          #go generate ./...
           # for app in app1 app2 app3 ...; do
           for app in app ; do
           for dir in cli; do
