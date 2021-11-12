@@ -62,14 +62,16 @@ RUN mkdir -p $TGT/var/lib/$APPNAME/conf.d \
 
 
 ENV GOPROXY="$GOPROXY"
-RUN go mod download
-RUN export GOVER=$(gp version) \
+RUN echo "Using GOPROXY=$GOPROXY" && go mod download
+RUN export GOVER=$(go version) \
+    && export VERSION="$(grep -E 'Version[ \t]+=[ \t]+' ./cli/app/doc.go|grep -Eo '[0-9.]+')" \
     && export LDFLAGS="-s -w \
         	-X \"$W_PKG.Buildstamp=$BUILDTIME\" -X \"$W_PKG.Githash=$GIT_REVISION\" \
         	-X \"$W_PKG.Version=$VERSION\" -X \"$W_PKG.GoVersion=$GOVER\" " \
-    && CGO_ENABLED=0 go build -v -tags docker -tags k8s,istio \
+    && echo "Using APPNAME=$APPNAME VERSION=$VERSION" \
+    && CGO_ENABLED=0 go build -v -tags docker -tags k8s,istio -tags cmdr-apps \
        -ldflags "$LDFLAGS" \
-       -o $TGT/var/lib/$APPNAME/$APPNAME ./cli/$APPNAME/cli/$APPNAME
+       -o $TGT/var/lib/$APPNAME/$APPNAME ./cli/app/cli/app
 RUN ls -la $TGT $TGT/var/lib/$APPNAME $TGT/etc/$APPNAME
 # RUN ldd --help
 # RUN ldd $TGT/var/lib/$APPNAME/$APPNAME   # need musl-utils & musl-dev
@@ -131,7 +133,7 @@ EXPOSE $PORT
 
 # Use an unprivileged user.
 USER $USER
-ENTRYPOINT ["/var/lib/gserver/gserver"]
+ENTRYPOINT ["/var/lib/faker/faker"]
 #ENTRYPOINT ["$APP_HOME/$APPNAME"]
-CMD []
+CMD ["--help"]
 #CMD ["server", "run"]

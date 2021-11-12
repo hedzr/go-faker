@@ -102,14 +102,21 @@ jobs:
         env:
           HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          IMAGE_NAME: hacker
+          IMAGE_NAME: faker
           IMAGE_TAG:
+          PORT:
+          VERSION:
         run: |
           IMAGE_TAG=${GITHUB_REF#*/}
           IMAGE_TAG=${IMAGE_TAG#*/}
           IMAGE_TAG=$(echo $IMAGE_TAG | sed -e "s#^v##")
           echo "Using IMAGE_TAG: $IMAGE_TAG"
+          # export VERSION="$(grep -E "Version[ \t]+=[ \t]+" doc.go|grep -Eo "[0-9.]+")"
           docker build -f app.Dockerfile \
+            --build-arg APPNAME=$IMAGE_NAME \
+            --build-arg VERSION=$VERSION \
+            --build-arg PORT=$PORT \
+            --build-arg GOPROXY=https://goproxy.io,direct \
             -t docker.pkg.github.com/hedzr/$IMAGE_NAME:$IMAGE_TAG \
             -t docker.pkg.github.com/hedzr/$IMAGE_NAME:latest \
             -t hedzr/$IMAGE_NAME:$IMAGE_TAG \
