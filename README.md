@@ -93,7 +93,7 @@ Pull the docker image:
 ```bash
 # get docker image
 docker pull hedzr/faker
-docker pull ghcr.io/hedzr/faker
+docker pull ghcr.io/hedzr/cli/faker
 ```
 
 Run as a local app:
@@ -101,6 +101,8 @@ Run as a local app:
 ```bash
 docker run -it --rm hedzr/faker --help
 docker run -it --rm hedzr/faker finance --mastercard
+# or:
+docker run -it --rm ghcr.io/hedzr/cli/faker
 ```
 
 ## Getting Started (for Developer)
