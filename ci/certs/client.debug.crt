@@ -1,0 +1,45 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 4 (0x4)
+    Signature Algorithm: ecdsa-with-SHA256
+        Issuer: C=CN, ST=Chongqing, L=CQ, O=Hedzr Studio., CN=Root CA
+        Validity
+            Not Before: Jan 15 03:41:54 2020 GMT
+            Not After : Jan 12 03:41:54 2030 GMT
+        Subject: C=CN, ST=Chongqing, L=CQ, O=Hedzr Studio., CN=demo1
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub: 
+                    04:e6:e7:fe:fe:33:c1:28:12:c7:3d:dd:e2:f1:dd:
+                    62:35:da:b8:39:04:a4:7c:15:3a:73:e3:a6:fe:04:
+                    a7:32:ff:c4:8f:50:62:0f:0d:c7:16:86:ad:3e:6b:
+                    7b:23:27:a5:b5:d5:25:18:e1:80:68:bc:0e:16:98:
+                    6d:42:25:d3:b8
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature
+            X509v3 Extended Key Usage: 
+                TLS Web Client Authentication
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+    Signature Algorithm: ecdsa-with-SHA256
+         30:45:02:21:00:e4:9e:2c:d8:83:8c:74:64:ff:b9:4d:be:0d:
+         b3:4a:93:c0:79:9f:5b:25:98:77:09:8f:6e:73:5b:89:f0:81:
+         ce:02:20:65:55:04:1e:48:8c:e8:8c:40:d0:d4:9e:6c:19:df:
+         cf:7c:a3:a4:d2:cc:ab:c8:f8:78:e5:b8:c3:24:83:ba:36
+-----BEGIN CERTIFICATE-----
+MIIB0jCCAXigAwIBAgIBBDAKBggqhkjOPQQDAjBYMQswCQYDVQQGEwJDTjESMBAG
+A1UECBMJQ2hvbmdxaW5nMQswCQYDVQQHEwJDUTEWMBQGA1UEChMNSGVkenIgU3R1
+ZGlvLjEQMA4GA1UEAxMHUm9vdCBDQTAeFw0yMDAxMTUwMzQxNTRaFw0zMDAxMTIw
+MzQxNTRaMFYxCzAJBgNVBAYTAkNOMRIwEAYDVQQIEwlDaG9uZ3FpbmcxCzAJBgNV
+BAcTAkNRMRYwFAYDVQQKEw1IZWR6ciBTdHVkaW8uMQ4wDAYDVQQDEwVkZW1vMTBZ
+MBMGByqGSM49AgEGCCqGSM49AwEHA0IABObn/v4zwSgSxz3d4vHdYjXauDkEpHwV
+OnPjpv4EpzL/xI9QYg8NxxaGrT5reyMnpbXVJRjhgGi8DhaYbUIl07ijNTAzMA4G
+A1UdDwEB/wQEAwIHgDATBgNVHSUEDDAKBggrBgEFBQcDAjAMBgNVHRMBAf8EAjAA
+MAoGCCqGSM49BAMCA0gAMEUCIQDknizYg4x0ZP+5Tb4Ns0qTwHmfWyWYdwmPbnNb
+ifCBzgIgZVUEHkiM6IxA0NSebBnfz3yjpNLMq8j4eOW4wySDujY=
+-----END CERTIFICATE-----
