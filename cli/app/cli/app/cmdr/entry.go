@@ -15,10 +15,11 @@ import (
 
 const (
 	// appName   = "go-faker"
-	copyright = "go-faker - A faked records generator - cmdr series"
-	desc      = "faker is an faked records generator"
-	longDesc  = "faker is an faked records generator. It makes an demo application for `cmdr`"
-	examples  = `
+	copyright    = "go-faker - A faked records generator - cmdr series"
+	desc         = "faker is an faked records generator"
+	longDesc     = "faker is an faked records generator. It makes an demo application for `cmdr`"
+	examples     = ``
+	examplesLong = `
 $ {{.AppName}} gen shell [--bash|--zsh|--auto]
   generate bash/shell completion scripts
 $ {{.AppName}} gen man
@@ -42,9 +43,10 @@ func Entry() {
 		//trace.WithTraceEnable(defaultTraceEnabled),
 		cmdr.WithUnhandledErrorHandler(onUnhandledErrorHandler),
 		cmdr.WithLogx(build.New(build.NewLoggerConfigWith(defaultDebugEnabled, defaultLoggerBackend, defaultLoggerLevel))),
-		//cmdr.WithHelpTailLine(`
-		//
-		//`),
+		cmdr.WithHelpTailLine(`
+# Type '-h'/'-?' or '--help' to get command help screen.
+# Star me if it's helpful: https://github.com/hedzr/go-hacker
+		`),
 
 		//dex.WithDaemon(
 		//	svr.NewDaemon(svr.WithRouterImpl(sth.NewGinMux())),

@@ -31,12 +31,13 @@ A simple CLI app based [cmdr](https://github.com/hedzr/cmdr) and golang.
 The available commands are:
 
 ```bash
+Commands:
   a, addr, address                          generate address
   app                                       generate app names
-  avatar                                    generate Avatar names
+  av, avatar                                generate Avatar names
   btc, bitcoin                              generate Bitcoin (BTC) names
   bz, business, biz, credit-card            generate Business names
-  c, code, codes                            generate codes (ISBN10, ISBN13, EAN13, EAN8, RUT, ABN)
+  c, code, codes                            generate Codes (ISBN10, ISBN13, EAN13, EAN8, RUT, ABN)
   cc, commerce                              generate Commerce names
   co, company, corp                         generate Company names
   f, finance, fin                           generate Finance names (visa, mastercard, ...)
@@ -45,6 +46,11 @@ The available commands are:
   hhc, hacker-phrases-colored               generate Colored Hacker Phrases names
   hhp, hacker-phrases-colored-piped         generate Colored Hacker Phrases names, let's work as a pipe
   i, internet                               generate Internet names
+  l, lorem                                  generate Lorem text
+  n, name                                   generate Name
+  num, number                               generate address
+  pn, phone-number                          generate PhoneNumber record
+  t, team                                   generate Team record
 ```
 
 ### Basic Usages
@@ -117,6 +123,71 @@ There are several output formats: `json`, `json-compact` (_default_), `yaml` or 
 > ❯ go run ./cli/app/cli/app hp
 > If we parse the matrix, we can get to the CSS system through the bluetooth TCP interface!; We need to copy the auxiliary PCI bandwidth!; Try to program the COM driver, maybe it will reboot the digital bandwidth!; You can't compress the capacitor without indexing the optical USB driver!; Use the cross-platform TCP alarm, then you can generate the digital system!; The SQL interface is down, override the haptic protocol so we can navigate the XSS protocol!; Bypassing the matrix won't do anything, we need to synthesize the bluetooth RSS driver!; I'll generate the multi-byte SSL card, that should array the JSON panel!; If we index the pixel, we can get to the JSON application through the auxiliary JBOD bandwidth!; We need to back up the auxiliary TCP monitor!; Try to parse the JSON pixel, maybe it will override the 1080p application!; You can't connect the system without backing up the solid state USB protocol!; Use the back-end SMTP firewall, then you can parse the digital feed!; The HDD interface is down, compress the wireless sensor so we can synthesize the XSS system!; Indexing the program won't do anything, we need to parse the online EXE firewall!; I'll index the optical IB circuit, that should array the JSON interface!; If we program the transmitter, we can get to the ADP hard drive through the virtual JSON bandwidth!; We need to bypass the auxiliary CSS firewall!; Try to program the ADP pixel, maybe it will index the mobile alarm!; You can't transmit the matrix without programming the digital XML card!; Use the cross-platform COM array, then you can override the cross-platform bus!; The FTP panel is down, copy the virtual application so we can quantify the FTP feed!; Copying the driver won't do anything, we need to compress the cross-platform JBOD matrix!; I'll parse the digital SSL hard drive, that should hard drive the PNG card!; If we copy the card, we can get to the SMS card through the 1080p CSS feed!; We need to compress the open-source XSS card!; Try to copy the XSS card, maybe it will generate the auxiliary array!; You can't connect the monitor without programming the multi-byte SSL pixel!; Use the 1080p SCSI port, then you can generate the solid state bandwidth!; The SMTP protocol is down, generate the neural transmitter so we can input the SDD alarm!; Navigating the program won't do anything, we need to bypass the cross-platform IB feed!; I'll compress the open-source GB array, that should circuit the SCSI hard drive!
 > ```
+
+#### Output one field alone or Dump All
+
+You may print just one field in a record. For instance, the following command print Title field of a Name record:
+
+```bash
+❯ go run ./cli/app/cli/app --json name -t
+{
+  "Name": {
+    "Title": "Lead Data Technician"
+  }
+}
+```
+
+In another side, all fields can be printed of course:
+
+```bash
+❯ go run ./cli/app/cli/app --json n
+{
+  "Name": {
+    "FirstName": "Fritz",
+    "LastName": "Kilback",
+    "Name": "Kenneth Becker",
+    "Prefix": "Ms.",
+    "String": "Sammie Windler",
+    "Suffix": "Sr.",
+    "Title": "Principal Configuration Agent"
+  }
+}
+```
+
+Check out the options of `Name` record:
+
+```bash
+❯ go run ./cli/app/cli/app --json n -h
+...
+Options:
+  [Type]
+  -f,  --first-name,--fn                    generates a firstName field (default=false)
+  -l,  --last-name,--ln                     generates a lastName field (default=false)
+  -n,  --name                               generates a fullName field (default=false)
+  -p,  --prefix                             generates a prefix field (default=false)
+  -ss, --string,--str,--sz                  generates a string field (default=false)
+  -s,  --suffix                             generates a suffix field (default=false)
+  -t,  --title                              generates a title field (default=false)
+...
+```
+
+#### Which supports `Output one field alone or all`
+
+Totally, these records have the feature:
+
+- App
+- Address
+- Avatar
+- Bitcoin
+- Business
+- Commerce
+- Company
+- Internet
+- Lorem
+- Name
+- Number
+- PhoneNumber
+
 
 
 ## Installations & Usages

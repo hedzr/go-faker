@@ -1,11 +1,11 @@
 package cmdrrel
 
 import (
-	"github.com/hedzr/go-faker/cli/app"
-	"github.com/hedzr/go-faker/internal"
 	"fmt"
 	"github.com/hedzr/cmdr"
 	"github.com/hedzr/cmdr/conf"
+	"github.com/hedzr/go-faker/cli/app"
+	"github.com/hedzr/go-faker/internal"
 	"io/ioutil"
 	"net"
 	"os"

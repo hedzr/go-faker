@@ -57,6 +57,11 @@ func AttachToCmdr(root *cmdr.RootCmdOpt) {
 	genFinance(root)
 	genHackers(root)
 	genInternet(root)
+	genLorem(root)
+	genName(root)
+	genNumber(root)
+	genPhoneNumber(root)
+	genTeam(root)
 
 	// Date
 	// Lorem

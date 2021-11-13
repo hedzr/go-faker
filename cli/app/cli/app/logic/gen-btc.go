@@ -3,27 +3,37 @@ package logic
 import (
 	"fmt"
 	"github.com/hedzr/cmdr"
-	"strings"
 	"syreclabs.com/go/faker"
 )
 
 func genBitcoin(root *cmdr.RootCmdOpt) {
-	root.NewSubCommand("bitcoin", "btc").
+	oo := faker.Bitcoin()
+	m := map[string]struct {
+		label   string
+		fn      func() string
+		short   string
+		aliases []string
+	}{
+		"address": {"Address", oo.Address, "a", []string{"addr"}},
+		"string":  {"String", oo.String, "ss", []string{}},
+	}
+	//sb.WriteString(fmt.Sprintf("    Address             : %v\n", oo.Address())) // => "Alphazap"
+	//sb.WriteString(fmt.Sprintf("    String              : %v\n", oo.String()))  // => "Tempsoft 4.51"
+
+	cc := root.NewSubCommand("bitcoin", "btc").
 		Description("generate Bitcoin (BTC) names").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
 		Action(func(cmd *cmdr.Command, remainArgs []string) (err error) {
-			oo := faker.Bitcoin()
-			str := dumpBitcoin(oo)
+			str := dumpIt(cmd, m)
 			outputWithFormat(str, "Bitcoin")
 			return
 		})
-
-}
-
-func dumpBitcoin(oo faker.FakeBitcoin) string {
-	var sb strings.Builder
-	sb.WriteString(fmt.Sprintf("    Address             : %v\n", oo.Address())) // => "Alphazap"
-	sb.WriteString(fmt.Sprintf("    String              : %v\n", oo.String()))  // => "Tempsoft 4.51"
-	return sb.String()
+	for k, v := range m {
+		cmdr.NewBool().
+			Titles(k, v.short, v.aliases...).
+			Description(fmt.Sprintf("generates %v field", v.label), "").
+			ToggleGroup("Type").
+			AttachTo(cc)
+	}
 }

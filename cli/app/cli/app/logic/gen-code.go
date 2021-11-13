@@ -10,7 +10,7 @@ import (
 func genCode(root *cmdr.RootCmdOpt) {
 
 	cc := root.NewSubCommand("code", "c", "codes").
-		Description("generate codes (ISBN10, ISBN13, EAN13, EAN8, RUT, ABN)").
+		Description("generate Codes (ISBN10, ISBN13, EAN13, EAN8, RUT, ABN)").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
 		Action(func(cmd *cmdr.Command, remainArgs []string) (err error) {

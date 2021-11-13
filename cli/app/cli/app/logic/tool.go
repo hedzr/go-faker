@@ -60,7 +60,7 @@ func toJSONPretty(target interface{}) (b []byte) {
 func outputWithFormat(str, header string) {
 	format := cmdr.GetStringR("faker.Format", "plain")
 	switch format {
-	case "yaml", "json":
+	case "yaml", "json", "json-compact":
 		var sb strings.Builder
 		sb.WriteString(header + ":\n")
 		sb.WriteString(str)
