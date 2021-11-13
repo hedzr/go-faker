@@ -31,28 +31,7 @@
 
 The available commands are:
 
-```bash
-Commands:
-  a, addr, address                          generate address
-  app                                       generate app names
-  av, avatar                                generate Avatar names
-  btc, bitcoin                              generate Bitcoin (BTC) names
-  bz, business, biz, credit-card            generate Business names
-  c, code, codes                            generate Codes (ISBN10, ISBN13, EAN13, EAN8, RUT, ABN)
-  cc, commerce                              generate Commerce names
-  co, company, corp                         generate Company names
-  f, finance, fin                           generate Finance names (visa, mastercard, ...)
-  hh, hacker, hack                          generate Hacker names
-  hp, hacker-phrases                        generate Hacker Phrases names
-  hhc, hacker-phrases-colored               generate Colored Hacker Phrases names
-  hhp, hacker-phrases-colored-piped         generate Colored Hacker Phrases names, let's work as a pipe
-  i, internet                               generate Internet names
-  l, lorem                                  generate Lorem text
-  n, name                                   generate Name
-  num, number                               generate address
-  pn, phone-number                          generate PhoneNumber record
-  t, team                                   generate Team record
-```
+![image-20211113173927682](https://raw.githubusercontent.com/hzimg/blog-pics/master/uPic/image-20211113173927682.png)
 
 ### Basic Usages
 
@@ -256,5 +235,4 @@ make build
 ## LICENSE
 
 MIT
-
 
