@@ -31,16 +31,15 @@ A simple CLI app based [cmdr](https://github.com/hedzr/cmdr) and golang.
 The available commands are:
 
 ```bash
-Commands:
   a, addr, address                          generate address
   app                                       generate app names
   avatar                                    generate Avatar names
-  b, bitcoin, btc                           generate Bitcoin names
-  bz, business, credit-card                 generate Bitcoin names
+  btc, bitcoin                              generate Bitcoin (BTC) names
+  bz, business, biz, credit-card            generate Business names
   c, code, codes                            generate codes (ISBN10, ISBN13, EAN13, EAN8, RUT, ABN)
   cc, commerce                              generate Commerce names
-  corp, company                             generate Company names
-  f, finance                                generate Finance names (visa, mastercard, ...)
+  co, company, corp                         generate Company names
+  f, finance, fin                           generate Finance names (visa, mastercard, ...)
   hh, hacker, hack                          generate Hacker names
   hp, hacker-phrases                        generate Hacker Phrases names
   hhc, hacker-phrases-colored               generate Colored Hacker Phrases names
@@ -75,16 +74,16 @@ For example:
     Longitude           : 62.222977
     String              : 418 Braun Roads Suite 343, Aprilbury Georgia 41333
 
-❯ ./bin/faker_darwin-amd64 f --visa
+❯ ./bin/faker_darwin-amd64 f --visa         # shortcut to 'finance'
         visa : 4364442188476
 
-❯ ./bin/faker_darwin-amd64 f -m
+❯ ./bin/faker_darwin-amd64 finance -m
     mastercard : 6771-8918-3284-3326
 
-❯ ./bin/faker_darwin-amd64 c -10
+❯ ./bin/faker_darwin-amd64 c -10            # shortcut to 'code'
       ISBN10 : 400189804-7
 
-❯ ./bin/faker_darwin-amd64 c -h
+❯ ./bin/faker_darwin-amd64 code -h          # print options for 'code'
 ...
 Options:
   [Type]
@@ -99,11 +98,30 @@ Options:
 
 Following the documentation at [dmgk/faker](https://github.com/dmgk/faker) too.
 
+#### Output Formats
+
+There are several output formats: `json`, `yaml` or `plain`. You may specify its by `--json`, `--yaml` or `--plain`.
+
+```bash
+❯ ./bin/faker_darwin-amd64 c -10 --json            # shortcut to 'code'
+{
+  "Code": {
+    "ISBN10": "821264042-6"
+  }
+}
+```
+
+> **Exceptions**:  
+> 'hacker-phrases', 'hacker-phrases-colored' and 'hacker-phrases-colored-piped' have only plain formats:
+> ```bash
+> ❯ go run ./cli/app/cli/app hp
+> If we parse the matrix, we can get to the CSS system through the bluetooth TCP interface!; We need to copy the auxiliary PCI bandwidth!; Try to program the COM driver, maybe it will reboot the digital bandwidth!; You can't compress the capacitor without indexing the optical USB driver!; Use the cross-platform TCP alarm, then you can generate the digital system!; The SQL interface is down, override the haptic protocol so we can navigate the XSS protocol!; Bypassing the matrix won't do anything, we need to synthesize the bluetooth RSS driver!; I'll generate the multi-byte SSL card, that should array the JSON panel!; If we index the pixel, we can get to the JSON application through the auxiliary JBOD bandwidth!; We need to back up the auxiliary TCP monitor!; Try to parse the JSON pixel, maybe it will override the 1080p application!; You can't connect the system without backing up the solid state USB protocol!; Use the back-end SMTP firewall, then you can parse the digital feed!; The HDD interface is down, compress the wireless sensor so we can synthesize the XSS system!; Indexing the program won't do anything, we need to parse the online EXE firewall!; I'll index the optical IB circuit, that should array the JSON interface!; If we program the transmitter, we can get to the ADP hard drive through the virtual JSON bandwidth!; We need to bypass the auxiliary CSS firewall!; Try to program the ADP pixel, maybe it will index the mobile alarm!; You can't transmit the matrix without programming the digital XML card!; Use the cross-platform COM array, then you can override the cross-platform bus!; The FTP panel is down, copy the virtual application so we can quantify the FTP feed!; Copying the driver won't do anything, we need to compress the cross-platform JBOD matrix!; I'll parse the digital SSL hard drive, that should hard drive the PNG card!; If we copy the card, we can get to the SMS card through the 1080p CSS feed!; We need to compress the open-source XSS card!; Try to copy the XSS card, maybe it will generate the auxiliary array!; You can't connect the monitor without programming the multi-byte SSL pixel!; Use the 1080p SCSI port, then you can generate the solid state bandwidth!; The SMTP protocol is down, generate the neural transmitter so we can input the SDD alarm!; Navigating the program won't do anything, we need to bypass the cross-platform IB feed!; I'll compress the open-source GB array, that should circuit the SCSI hard drive!
+> ```
 
 
-### Installations & Usages
+## Installations & Usages
 
-#### Homebrew
+### Homebrew
 
 As a macOS user, you may install `faker` via Homebrew:
 
@@ -121,7 +139,7 @@ brew install faker
 Now, `faker` is available.
 
 
-#### DockerHub or Github Docker Registry
+### DockerHub or Github Docker Registry
 
 Pull the docker image:
 ```bash
@@ -138,7 +156,7 @@ docker run -it --rm hedzr/faker finance --mastercard
 docker run -it --rm ghcr.io/hedzr/cli/faker
 ```
 
-#### Else build from source codes
+### Else build from source codes
 
 
 

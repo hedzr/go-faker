@@ -8,14 +8,14 @@ import (
 
 func genFinance(root *cmdr.RootCmdOpt) {
 
-	cc := root.NewSubCommand("finance", "f").
+	cc := root.NewSubCommand("finance", "f", "fin").
 		Description("generate Finance names (visa, mastercard, ...)").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
 		Action(func(cmd *cmdr.Command, remainArgs []string) (err error) {
-			code := faker.Finance()
+			oo := faker.Finance()
 			typ := cmdr.GetStringRP(cmd.GetDottedNamePath(), "Type") // get 'Type' from ToggleGroup
-			fmt.Printf("    %8s : %v\n", typ, code.CreditCard(typ))
+			fmt.Printf("    %8s : %v\n", typ, oo.CreditCard(typ))
 			return
 		})
 

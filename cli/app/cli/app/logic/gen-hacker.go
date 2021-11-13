@@ -5,11 +5,24 @@ import (
 	"fmt"
 	"github.com/hedzr/cmdr"
 	"io"
+	"math"
 	"os"
 	"strings"
 	"syreclabs.com/go/faker"
 	"time"
 )
+
+func dumpHacker(oo faker.FakeHacker) string {
+	var sb strings.Builder
+	sb.WriteString(fmt.Sprintf("    SaySomethingSmart   : %v\n", oo.SaySomethingSmart())) // => "If we connect the bus, we can get to the XML microchip through the digital TCP sensor!"
+	sb.WriteString(fmt.Sprintf("    Abbreviation        : %v\n", oo.Abbreviation()))      // => "HTTP"
+	sb.WriteString(fmt.Sprintf("    Adjective           : %v\n", oo.Adjective()))         // => "cross-platform"
+	sb.WriteString(fmt.Sprintf("    Noun                : %v\n", oo.Noun()))              // => "interface"
+	sb.WriteString(fmt.Sprintf("    Verb                : %v\n", oo.Verb()))              // => "bypass"
+	sb.WriteString(fmt.Sprintf("    IngVerb             : %v\n", oo.IngVerb()))           // => "parsing"
+	sb.WriteString(fmt.Sprintf("    Phrases             : \n%v\n", oo.Phrases()))         // => []string{
+	return sb.String()
+}
 
 func genHackers(root *cmdr.RootCmdOpt) {
 
@@ -18,14 +31,9 @@ func genHackers(root *cmdr.RootCmdOpt) {
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
 		Action(func(cmd *cmdr.Command, remainArgs []string) (err error) {
-			addr := faker.Hacker()
-			fmt.Printf("    SaySomethingSmart   : %v\n", addr.SaySomethingSmart()) // => "If we connect the bus, we can get to the XML microchip through the digital TCP sensor!"
-			fmt.Printf("    Abbreviation        : %v\n", addr.Abbreviation())      // => "HTTP"
-			fmt.Printf("    Adjective           : %v\n", addr.Adjective())         // => "cross-platform"
-			fmt.Printf("    Noun                : %v\n", addr.Noun())              // => "interface"
-			fmt.Printf("    Verb                : %v\n", addr.Verb())              // => "bypass"
-			fmt.Printf("    IngVerb             : %v\n", addr.IngVerb())           // => "parsing"
-			fmt.Printf("    Phrases             : \n%v\n", addr.Phrases())         // => []string{
+			oo := faker.Hacker()
+			str := dumpHacker(oo)
+			outputWithFormat(str, "Bitcoin")
 			//        "If we bypass the program, we can get to the AGP protocol through the optical SDD alarm!",
 			//        "We need to calculate the back-end XML microchip!",
 			//        "Try to generate the GB bus, maybe it will hack the neural panel!",
@@ -95,7 +103,7 @@ func genHackers(root *cmdr.RootCmdOpt) {
 				return
 			}
 
-			if cmdr.GetBoolR(cmd.Full + ".just-in-time") {
+			if cmdr.GetBoolRP(cmd.GetDottedNamePath(), ".just-in-time") {
 				reader := bufio.NewReader(os.Stdin)
 				j := 0
 				for {
@@ -131,4 +139,19 @@ func genHackers(root *cmdr.RootCmdOpt) {
 		Description("render the char from pipe one-by-one (just-in-time)").
 		AttachTo(hhp)
 
+}
+
+func rgb(i int) (int, int, int) {
+	var f = 0.1
+	return int(math.Sin(f*float64(i)+0)*127 + 128),
+		int(math.Sin(f*float64(i)+2*math.Pi/3)*127 + 128),
+		int(math.Sin(f*float64(i)+4*math.Pi/3)*127 + 128)
+}
+
+func printZ(output []rune) {
+	for j := 0; j < len(output); j++ {
+		r, g, b := rgb(j)
+		fmt.Printf("\033[38;2;%d;%d;%dm%c\033[0m", r, g, b, output[j])
+	}
+	fmt.Println()
 }
