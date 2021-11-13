@@ -20,13 +20,14 @@
 [![Coverage Status](https://coveralls.io/repos/github/hedzr/go-faker/badge.svg?branch=master)](https://coveralls.io/github/hedzr/go-faker?branch=master)
 -->
 
-A simple CLI app based [cmdr](https://github.com/hedzr/cmdr) and golang.
+`faker` is a CLI app which will generate the faked records such as names, addresses, and phone numbers.
 
-> powered by [cmdr](https://github.com/hedzr/cmdr).
+> powered by [cmdr](https://github.com/hedzr/cmdr).  
+> based on [dmgk/faker](https://github.com/dmgk/faker).  
 
 ## Features
 
-`faker` will generate the faked records. It bases on [dmgk/faker](https://github.com/dmgk/faker).
+> 略略略
 
 The available commands are:
 

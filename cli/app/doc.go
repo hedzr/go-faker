@@ -11,7 +11,7 @@ const (
 	// AppDesc const
 	AppDesc = "faker is an faked records generator. It makes an demo application for `cmdr`"
 	// Version const
-	Version = "0.1.55"
+	Version = "0.2.0"
 	// VersionInt const
-	VersionInt = 0x000137
+	VersionInt = 0x000200
 )
