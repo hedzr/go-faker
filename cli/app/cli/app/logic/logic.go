@@ -22,7 +22,7 @@ func AttachToCmdr(root *cmdr.RootCmdOpt) {
 		Group("").
 		EnvKeys("").
 		AttachTo(root)
-	cmdr.NewBool().
+	cmdr.NewBool(true).
 		Titles("json-compact", "json-compact").
 		Description("output with json format", "").
 		ToggleGroup("Format").
@@ -36,7 +36,7 @@ func AttachToCmdr(root *cmdr.RootCmdOpt) {
 		Group("").
 		EnvKeys("").
 		AttachTo(root)
-	cmdr.NewBool(true).
+	cmdr.NewBool().
 		Titles("yaml", "yaml").
 		Description("output with yaml format", "").
 		ToggleGroup("Format").

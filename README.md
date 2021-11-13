@@ -52,7 +52,7 @@ The available commands are:
 For example:
 
 ```bash
-❯ ./bin/faker_darwin-amd64 a
+❯ ./bin/faker_darwin-amd64 a --plain
     City                : East Eldred
     StreetName          : Lesley Locks
     StreetAddress       : 259 Donnelly Port
@@ -74,13 +74,13 @@ For example:
     Longitude           : 62.222977
     String              : 418 Braun Roads Suite 343, Aprilbury Georgia 41333
 
-❯ ./bin/faker_darwin-amd64 f --visa         # shortcut to 'finance'
+❯ ./bin/faker_darwin-amd64 f --visa --plain # shortcut to 'finance'
         visa : 4364442188476
 
 ❯ ./bin/faker_darwin-amd64 finance -m
     mastercard : 6771-8918-3284-3326
 
-❯ ./bin/faker_darwin-amd64 c -10            # shortcut to 'code'
+❯ ./bin/faker_darwin-amd64 c -10 --plain    # shortcut to 'code'
       ISBN10 : 400189804-7
 
 ❯ ./bin/faker_darwin-amd64 code -h          # print options for 'code'
@@ -100,7 +100,7 @@ Following the documentation at [dmgk/faker](https://github.com/dmgk/faker) too.
 
 #### Output Formats
 
-There are several output formats: `json`, `yaml` or `plain`. You may specify its by `--json`, `--yaml` or `--plain`.
+There are several output formats: `json`, `json-compact` (_default_), `yaml` or `plain`. You may specify its by `--json`, `--yaml` or `--plain`.
 
 ```bash
 ❯ ./bin/faker_darwin-amd64 c -10 --json            # shortcut to 'code'
