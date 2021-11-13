@@ -28,7 +28,7 @@ A simple CLI app based [cmdr](https://github.com/hedzr/cmdr) and golang.
 
 `faker` will generate the faked records. It bases on [dmgk/faker](https://github.com/dmgk/faker).
 
-The avaliable commands are:
+The available commands are:
 
 ```bash
 Commands:
@@ -103,7 +103,7 @@ Following the documentation at [dmgk/faker](https://github.com/dmgk/faker) too.
 
 ### Installations & Usages
 
-#### via Homebrew
+#### Homebrew
 
 As a macOS user, you may install `faker` via Homebrew:
 
@@ -118,7 +118,10 @@ brew tap hedzr/brew
 brew install faker
 ```
 
-#### via DockerHub or Github Docker Registry
+Now, `faker` is available.
+
+
+#### DockerHub or Github Docker Registry
 
 Pull the docker image:
 ```bash
