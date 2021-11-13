@@ -16,8 +16,8 @@ import (
 const (
 	// appName   = "go-faker"
 	copyright = "go-faker - A faked records generator - cmdr series"
-	desc      = "faker is an faked records generator."
-	longDesc  = "faker is an faked records generator. It makes an demo application for `cmdr`."
+	desc      = "faker is an faked records generator"
+	longDesc  = "faker is an faked records generator. It makes an demo application for `cmdr`"
 	examples  = `
 $ {{.AppName}} gen shell [--bash|--zsh|--auto]
   generate bash/shell completion scripts
@@ -42,6 +42,9 @@ func Entry() {
 		//trace.WithTraceEnable(defaultTraceEnabled),
 		cmdr.WithUnhandledErrorHandler(onUnhandledErrorHandler),
 		cmdr.WithLogx(build.New(build.NewLoggerConfigWith(defaultDebugEnabled, defaultLoggerBackend, defaultLoggerLevel))),
+		//cmdr.WithHelpTailLine(`
+		//
+		//`),
 
 		//dex.WithDaemon(
 		//	svr.NewDaemon(svr.WithRouterImpl(sth.NewGinMux())),

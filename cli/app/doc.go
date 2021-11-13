@@ -9,9 +9,9 @@ const (
 	// AppTitle const
 	AppTitle = "faked generator"
 	// AppDesc const
-	AppDesc = "faker is an effective devops tool. It make an demo application for `cmdr`."
+	AppDesc = "faker is an faked records generator. It makes an demo application for `cmdr`"
 	// Version const
-	Version = "0.1.53"
+	Version = "0.1.55"
 	// VersionInt const
-	VersionInt = 0x000135
+	VersionInt = 0x000137
 )
