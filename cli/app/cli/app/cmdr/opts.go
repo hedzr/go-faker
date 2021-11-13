@@ -2,7 +2,7 @@ package cmdrrel
 
 import "github.com/hedzr/cmdr"
 
-var optHideGenerateCmd, optAddTraceOption, optAddServerExtOption cmdr.ExecOption
+var optHideGenerateCmd cmdr.ExecOption
 
 func init() {
 
@@ -22,14 +22,14 @@ func init() {
 	//		AttachToRoot(root)
 	//}, nil)
 
-	// the following statements show you how to attach an option to a sub-command
-	optAddServerExtOption = cmdr.WithXrefBuildingHooks(func(root *cmdr.RootCommand, args []string) {
-		serverCmd := cmdr.FindSubCommandRecursive("server", nil)
-		serverStartCmd := cmdr.FindSubCommand("start", serverCmd)
-		cmdr.NewInt(5100).
-			Titles("vnc-server", "vnc").
-			Description("start as a vnc server (just a faked demo)", "").
-			Placeholder("PORT").
-			AttachTo(cmdr.NewCmdFrom(serverStartCmd))
-	}, nil)
+	//// the following statements show you how to attach an option to a sub-command
+	//optAddServerExtOption = cmdr.WithXrefBuildingHooks(func(root *cmdr.RootCommand, args []string) {
+	//	serverCmd := cmdr.FindSubCommandRecursive("server", nil)
+	//	serverStartCmd := cmdr.FindSubCommand("start", serverCmd)
+	//	cmdr.NewInt(5100).
+	//		Titles("vnc-server", "vnc").
+	//		Description("start as a vnc server (just a faked demo)", "").
+	//		Placeholder("PORT").
+	//		AttachTo(cmdr.NewCmdFrom(serverStartCmd))
+	//}, nil)
 }
