@@ -3,7 +3,7 @@
 [![Go](https://github.com/hedzr/go-faker/actions/workflows/go.yml/badge.svg)](https://github.com/hedzr/go-faker/actions/workflows/go.yml)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/hedzr/go-faker.svg?label=release)](https://github.com/hedzr/go-faker/releases)
 [![](https://img.shields.io/badge/go-dev-green)](https://pkg.go.dev/github.com/hedzr/go-faker)
-| ![Docker Pulls](https://img.shields.io/docker/pulls/hedzr/faker)
+  [![Docker Pulls](https://img.shields.io/docker/pulls/hedzr/faker)](https://hub.docker.com/r/hedzr/faker)
 ![Docker Image Version (latest semver)](https://img.shields.io/docker/v/hedzr/faker)
 ![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/hedzr/faker)
 
