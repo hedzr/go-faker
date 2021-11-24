@@ -86,7 +86,7 @@ Following the documentation at [dmgk/faker](https://github.com/dmgk/faker) too.
 
 #### Output Formats
 
-There are several output formats: `json`, `json-compact` (_default_), `yaml` or `plain`. You may specify its by `--json`, `--yaml` or `--plain`.
+There are several output formats: `json-compact`(_default_), `json`, `yaml` or `plain`. You may specify its by `--json`, `--yaml` or `--plain`.
 
 ```bash
 ❯ ./bin/faker_darwin-amd64 c -10 --json            # shortcut to 'code'
