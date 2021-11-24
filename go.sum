@@ -7,8 +7,8 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/fsnotify/fsnotify v1.5.1 h1:mZcQUHVQUQWoPXXtuf9yuEXKudkV2sx1E06UadKWpgI=
 github.com/fsnotify/fsnotify v1.5.1/go.mod h1:T3375wBYaZdLLcVNkcVbzGHY7f1l/uK5T5Ai1i3InKU=
-github.com/hedzr/cmdr v1.9.1 h1:Uw9gSOp6nB42CLCWLzT9Dix9vUipF8i61rCS6dNyTTQ=
-github.com/hedzr/cmdr v1.9.1/go.mod h1:Nb8ir8Pppos9E6T8pqGS2RVrtG4EA9tOiaiQIE/3gEA=
+github.com/hedzr/cmdr v1.9.2 h1:oGRz+66i/CPMFtK+4eliZcr7XFAy2uMGz1JrqechFVk=
+github.com/hedzr/cmdr v1.9.2/go.mod h1:Nb8ir8Pppos9E6T8pqGS2RVrtG4EA9tOiaiQIE/3gEA=
 github.com/hedzr/cmdr-base v0.1.3 h1:pMhVLP+Uxdhuf6BeasAC2OivMXJ3vxJHvFJHPQscQPU=
 github.com/hedzr/cmdr-base v0.1.3/go.mod h1:c3vMkHa5PME2P2W8lE3T9+JX12tq9tmCUt6lXbmt5kI=
 github.com/hedzr/log v1.3.22 h1:+tbnCmmeCUkfQ0IY+MKOpCuHaqP/9BPYdn1sw/Fisb0=
