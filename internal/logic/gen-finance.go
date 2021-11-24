@@ -15,7 +15,18 @@ func genFinance(root *cmdr.RootCmdOpt) {
 		Action(func(cmd *cmdr.Command, remainArgs []string) (err error) {
 			oo := faker.Finance()
 			typ := cmdr.GetStringRP(cmd.GetDottedNamePath(), "Type") // get 'Type' from ToggleGroup
-			fmt.Printf("    %8s : %v\n", typ, oo.CreditCard(typ))
+
+			format := cmdr.GetStringR("faker.Format", "plain")
+			switch format {
+			case "yaml":
+				fmt.Printf("finance:\n  %s: %v\n", typ, oo.CreditCard(typ))
+			case "json":
+				fmt.Printf("{\n  \"finance\": {\n    \"%s\": \"%v\"\n  }\n}\n", typ, oo.CreditCard(typ))
+			case "plain":
+				fmt.Printf("    %8s : %v\n", typ, oo.CreditCard(typ))
+			default:
+				fmt.Printf("{ \"finance\": { \"%s\": \"%v\" } }\n", typ, oo.CreditCard(typ))
+			}
 			return
 		})
 
