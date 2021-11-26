@@ -137,7 +137,7 @@ jobs:
           docker push $ACTOR/$IMAGE_NAME:$IMAGE_TAG
           docker push $ACTOR/$IMAGE_NAME:latest
 
-      - name: Build
+      - name: Build releases
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
           APP_NAME="${GITHUB_REPOSITORY##*/}"
@@ -161,22 +161,24 @@ jobs:
               GOVERSION: $GOVERSION
               BUILDTIME: $BUILDTIME
           EOF
+          #sudo apt install p7zip
           #go install -v github.com/swaggo/swag/cmd/swag
           #go generate ./...
           # for app in app1 app2 app3 ...; do
           for app in app ; do
           for dir in cli; do
             for GOOS in windows; do
-              for GOARCH in amd64; do
+              for GOARCH in amd64 arm64; do
                 suf=; if [[ $GOOS == "windows" ]]; then suf=".exe"; fi
                 GOOS=$GOOS GOARCH=$GOARCH go build -v -ldflags "$LDFLAGS" -o ./bin/$APP_NAME$suf ./$dir/$app/$dir/$app
                 chmod +x ./bin/$APP_NAME$suf
-                tar -czf ./bin/$APP_NAME-$GOOS-$GOARCH$suf.tgz ./bin/$APP_NAME$suf -Cci etc
+                # tar -czf ./bin/$APP_NAME-$GOOS-$GOARCH$suf.tgz ./bin/$APP_NAME$suf -Cci etc
+                7z a ./bin/$APP_NAME-$GOOS-$GOARCH$suf.tgz ./bin/$APP_NAME$suf etc/*
                 rm -f ./bin/$APP_NAME$suf
               done
             done
             for GOOS in linux; do
-              for GOARCH in amd64; do
+              for GOARCH in amd64 arm64; do
                 suf=; if [[ $GOOS == "windows" ]]; then suf=".exe"; fi
                 GOOS=$GOOS GOARCH=$GOARCH go build -v -ldflags "$LDFLAGS" -o ./bin/$APP_NAME$suf ./$dir/$app/$dir/$app
                 chmod +x ./bin/$APP_NAME$suf

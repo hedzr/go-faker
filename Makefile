@@ -134,6 +134,7 @@ endif
 #  const goosList = "aix android darwin dragonfly freebsd hurd illumos js linux nacl netbsd openbsd plan9 solaris windows zos "
 #  const goarchList = "386 amd64 amd64p32 arm armbe arm64 arm64be ppc64 ppc64le mips mipsle mips64 mips64le mips64p32 mips64p32le ppc riscv riscv64 s390 s390x sparc sparc64 wasm "
 #©
+# `go tool dist list`
 
 
 ## build: Compile the binary. Synonym of `compile`
@@ -142,14 +143,14 @@ build: directories compile
 
 ## build-win: build to windows executable, for LAN deploy manually.
 build-win:
-	@-$(MAKE) -s go-build-task os=windows goarchset=amd64
+	@-$(MAKE) -s go-build-task os=windows goarchset="amd64 arm64 arm 386"
 
 ## build-windows: build to riscv64 executable, for LAN deploy manually.
 build-windows: build-win
 
 ## build-linux: build to linux executable, for LAN deploy manually.
 build-linux:
-	@-$(MAKE) -s go-build-task os=linux goarchset=amd64
+	@-$(MAKE) -s go-build-task os=linux goarchset="amd64 arm64 arm"
 
 ## build-nacl: build to nacl executable, for LAN deploy manually.
 build-nacl:
@@ -161,7 +162,6 @@ build-nacl:
 	@-$(MAKE) -s go-build-task os=nacl goarchset="386 arm amd64p32"
 	@echo "  < All Done."
 	@ls -la $(LS_OPT) $(GOBIN)/*
-
 
 ## build-plan9: build to plan9 executable, for LAN deploy manually.
 build-plan9: goarchset = "386 amd64"
@@ -186,13 +186,13 @@ build-ci:
 	@echo "  < All Done."
 	@ls -la $(LS_OPT) $(GOBIN)/*
 
-## build-darwin: build to riscv64 executable, for LAN deploy manually.
+## build-darwin: build to darwin (Intel, M1) executable, for LAN deploy manually.
 build-darwin:
-	@-$(MAKE) -s go-build-task os=darwin goarchset=amd64
+	@-$(MAKE) -s go-build-task os=darwin goarchset="amd64 arm64"
 
-## build-m1: run build-ci task. just for CI tools
-build-m1:
-	@-$(MAKE) -s go-build-task os="darwin" goarchset="arm64"
+### build-m1: run build-m1 task. just for CI tools
+#build-m1:
+#	@-$(MAKE) -s go-build-task os="darwin" goarchset="arm64"
 
 go-build-task-another-one: directories go-generate
 	@echo "  >  Building $(os)/$(goarchset) binary..."
