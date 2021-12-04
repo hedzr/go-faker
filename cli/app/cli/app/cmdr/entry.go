@@ -54,7 +54,7 @@ func Entry() {
 		// server.WithCmdrHook(),
 
 		optHideGenerateCmd,
-		//optAddTraceOption,
+		optAddTraceOption,
 		//optAddServerExtOption,
 		//pprof.GetCmdrProfilingOptions(),
 	); err != nil {

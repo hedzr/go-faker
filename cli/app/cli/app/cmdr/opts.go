@@ -2,7 +2,7 @@ package cmdrrel
 
 import "github.com/hedzr/cmdr"
 
-var optHideGenerateCmd cmdr.ExecOption
+var optHideGenerateCmd, optAddTraceOption cmdr.ExecOption
 
 func init() {
 
@@ -13,14 +13,14 @@ func init() {
 		}
 	})
 
-	//// attaches `--trace` to root command
-	//// deprecated: instead of `trace.WithTraceEnable(true)`
-	//optAddTraceOption = cmdr.WithXrefBuildingHooks(func(root *cmdr.RootCommand, args []string) {
-	//	cmdr.NewBool(false).
-	//		Titles("trace", "tr").
-	//		Description("enable trace mode for tcp/mqtt send/recv data dump", "").
-	//		AttachToRoot(root)
-	//}, nil)
+	// attaches `--trace` to root command
+	// deprecated: instead of `trace.WithTraceEnable(true)`
+	optAddTraceOption = cmdr.WithXrefBuildingHooks(func(root *cmdr.RootCommand, args []string) {
+		cmdr.NewBool(false).
+			Titles("trace", "tr").
+			Description("enable trace mode for tcp/mqtt send/recv data dump", "").
+			AttachToRoot(root)
+	}, nil)
 
 	//// the following statements show you how to attach an option to a sub-command
 	//optAddServerExtOption = cmdr.WithXrefBuildingHooks(func(root *cmdr.RootCommand, args []string) {
