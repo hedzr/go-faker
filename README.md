@@ -210,6 +210,36 @@ docker run -it --rm ghcr.io/hedzr/cli/faker
 ### Else build from source codes
 
 
+## Shell Completions
+
+faker will detect the current SHELL environment and generate the auto-completion
+script.
+
+### zsh
+
+generating `_faker` and move it into zsh auto-completion directory:
+
+```bash
+# If Oh-my-zsh presented
+[ -d $HOME/.oh-my-zsh/completions ] || mkdir $HOME/.oh-my-zsh/completions
+faker gen shell >_faker && sudo mv _faker $HOME/.oh-my-zsh/completions/
+
+# Or use your personal folder
+mkdir $HOME/.zsh-auto-completions
+faker gen shell > $HOME/.zsh-auto-completions/_faker
+# And append this line into $HOME/.zshrc
+fpath=($fpath $HOME/.zsh-auto-completions)
+
+# The generating command could be:
+# faker gen sh --auto
+# faker gen sh --zsh
+```
+
+### bash
+
+Ready with `faker gen sh --bash`.
+
+
 
 ## Getting Started (for Developer)
 
