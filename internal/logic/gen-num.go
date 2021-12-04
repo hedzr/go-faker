@@ -41,7 +41,7 @@ func genNumber(root *cmdr.RootCmdOpt) {
 	}
 
 	cc := root.NewSubCommand("number", "num", "num").
-		Description("generate address").
+		Description("generate a number").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
 		//PreAction(func(cmd *cmdr.Command, remainArgs []string) (err error) {
