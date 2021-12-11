@@ -169,11 +169,12 @@ jobs:
           for dir in cli; do
             for GOOS in windows linux darwin; do
               for GOARCH in amd64 arm64; do
-                suf=; if [[ $GOOS == "windows" ]]; then suf=".exe"; fi
+                suf=; if [[ $GOOS == "windows" ]]; then suf=".exe"; if [ "$GOARCH" == "arm64" ]; then GOARCH=arm; fi; fi
                 GOOS=$GOOS GOARCH=$GOARCH go build -v -ldflags "$LDFLAGS" -o ./bin/$APP_NAME$suf ./$dir/$app/$dir/$app
                 chmod +x ./bin/$APP_NAME$suf
                 if [[ $GOOS == "windows" ]]; then
-                  7z a ./bin/$APP_NAME-$GOOS-$GOARCH$suf.7z ./bin/$APP_NAME$suf etc/*
+                  7z a ./bin/$APP_NAME-$GOOS-$GOARCH$suf.7z ./bin/$APP_NAME$suf
+                  cd ci && 7z a ./bin/$APP_NAME-$GOOS-$GOARCH$suf.7z etc/* && cd ..
                 else
                   tar -czf ./bin/$APP_NAME-$GOOS-$GOARCH$suf.tgz ./bin/$APP_NAME$suf -Cci etc
                 fi
