@@ -11,7 +11,7 @@ go 1.16
 //replace github.com/hedzr/cmdr-addons => ../../go-cmdr/53.cmdr-addons
 
 require (
-	github.com/hedzr/cmdr v1.9.5
+	github.com/hedzr/cmdr v1.9.6
 	github.com/hedzr/log v1.3.23
 	github.com/hedzr/logex v1.3.23
 	github.com/kr/text v0.2.0 // indirect
