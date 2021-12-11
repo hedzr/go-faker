@@ -5,3 +5,6 @@ ref/
 # temp debug config
 faker.yml
 bin/conf.d/
+
+# sftp config
+**/sftp.json
