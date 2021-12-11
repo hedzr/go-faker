@@ -362,7 +362,7 @@ go-clean:
 
 
 $(BIN)/swag: | $(GOBASE)   # # # ❶
-	@echo "  >  installing swaggo ..."
+	@echo "  >  installing swagger ..."
 	@$(GOSYS) install -v github.com/swaggo/swag/cmd/swag
 	#@$(GO) get -u github.com/swaggo/swag/cmd/swag
 	@ls -la $(BIN)/
@@ -538,7 +538,7 @@ MKDIR_P = mkdir -p
 
 directories: $(GOBIN)
 
-tools: $(BIN) $(BIN)/swag
+tools: $(BIN) # $(BIN)/swag
 
 $(GOBIN):
 	$(MKDIR_P) $(GOBIN)
