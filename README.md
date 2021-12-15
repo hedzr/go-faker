@@ -207,6 +207,10 @@ docker run -it --rm hedzr/faker finance --mastercard
 docker run -it --rm ghcr.io/hedzr/cli/faker
 ```
 
+### Debian/Ubuntu
+
+todo
+
 ### Else build from source codes
 
 
