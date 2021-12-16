@@ -76,6 +76,9 @@ jobs:
 
   build:
     needs: coverage
+    env:
+      ACTOR_EMAIL: hedzrz@gmail.com
+      BUMPER_VER: v0.0.5
     #env:
     #  GOPATH: ${{ github.workspace }}
     #  GO111MODULE: off
@@ -96,46 +99,54 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
 
+      - name: Set env
+        run: |
+          RELEASE_VERSION=${GITHUB_REF#refs/*/}
+          echo "RELEASE_VERSION=${RELEASE_VERSION}" >> $GITHUB_ENV
+          echo "VERSION=${RELEASE_VERSION/v/}" >> $GITHUB_ENV
+
       - name: Docker Build
         #if: startsWith(github.ref, 'refs/tags/v') || contains(github.ref, '/master')
         if: startsWith(github.ref, 'refs/tags/v')
         env:
           HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          IMAGE_NAME: faker
-          IMAGE_TAG:
-          PORT:
-          VERSION:
+          IMAGE_NAME: "faker"
+          IMAGE_TAG: ""
+          PORT: ""
         run: |
           IMAGE_NAME="${GITHUB_REPOSITORY##*/}"
           IMAGE_NAME=$(echo $IMAGE_NAME | sed 's/[go-]//g' | sed 's/[-go]//g' | tr '[:upper:]' '[:lower:]')
           ACTOR=$(echo $GITHUB_ACTOR | tr '[:upper:]' '[:lower:]')
           #
-          IMAGE_TAG=${GITHUB_REF#*/}
-          IMAGE_TAG=${IMAGE_TAG#*/}
-          IMAGE_TAG=$(echo $IMAGE_TAG | sed -e "s#^v##")
-          echo "Using IMAGE_TAG: $IMAGE_TAG"
+          #IMAGE_TAG=${GITHUB_REF#*/}
+          #IMAGE_TAG=${IMAGE_TAG#*/}
+          #IMAGE_TAG=$(echo $IMAGE_TAG | sed -e "s#^v##")
+          IMAGE_TAG=$VERSION
+          echo "Using IMAGE_TAG: $IMAGE_TAG, VERSION=$VERSION, RELEASE_VERSION=$RELEASE_VERSION"
           # export VERSION="$(grep -E "Version[ \t]+=[ \t]+" doc.go|grep -Eo "[0-9.]+")"
-          docker build -f app.Dockerfile \
-            --build-arg APPNAME=$IMAGE_NAME \
-            --build-arg VERSION=$VERSION \
-            --build-arg PORT=$PORT \
-            --build-arg GOPROXY=https://goproxy.io,direct \
-            -t docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:$IMAGE_TAG \
-            -t docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:latest \
-            -t $ACTOR/$IMAGE_NAME:$IMAGE_TAG \
-            -t $ACTOR/$IMAGE_NAME:latest \
-            .
-          echo $GH_TOKEN | docker login docker.pkg.github.com -u hedzr --password-stdin
-          # docker tag IMAGE_ID docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:$VERSION
-          docker push docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:$IMAGE_TAG
-          docker push docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:latest
-          #
-          echo $HUB_TOKEN | docker login -u hedzr --password-stdin
-          # docker tag docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:latest hedzr/$IMAGE_NAME:$IMAGE_TAG
-          # docker tag docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:latest hedzr/$IMAGE_NAME:latest
-          docker push $ACTOR/$IMAGE_NAME:$IMAGE_TAG
-          docker push $ACTOR/$IMAGE_NAME:latest
+          if [ -f app.Dockerfile ]; then
+            docker build -f app.Dockerfile \
+              --build-arg APPNAME=$IMAGE_NAME \
+              --build-arg VERSION=$VERSION \
+              --build-arg PORT=$PORT \
+              --build-arg GOPROXY=https://goproxy.io,direct \
+              -t docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:$IMAGE_TAG \
+              -t docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:latest \
+              -t $ACTOR/$IMAGE_NAME:$IMAGE_TAG \
+              -t $ACTOR/$IMAGE_NAME:latest \
+              .
+            echo $GH_TOKEN | docker login docker.pkg.github.com -u hedzr --password-stdin
+            # docker tag IMAGE_ID docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:$VERSION
+            docker push docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:$IMAGE_TAG
+            docker push docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:latest
+            #
+            echo $HUB_TOKEN | docker login -u hedzr --password-stdin
+            # docker tag docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:latest hedzr/$IMAGE_NAME:$IMAGE_TAG
+            # docker tag docker.pkg.github.com/$ACTOR/cli/$IMAGE_NAME:latest hedzr/$IMAGE_NAME:latest
+            docker push $ACTOR/$IMAGE_NAME:$IMAGE_TAG
+            docker push $ACTOR/$IMAGE_NAME:latest
+          fi
 
       - name: Build releases
         if: startsWith(github.ref, 'refs/tags/v')
@@ -148,7 +159,7 @@ jobs:
           export GIT_REVISION="$(git rev-parse --short HEAD)"
           export GOVERSION="$(go version)"
           export BUILDTIME="$(date -u '+%Y-%m-%d_%H-%M-%S')"
-          export VERSION="$(grep -E "Version[ \t]+=[ \t]+" doc.go|grep -Eo "[0-9.]+")"
+          # export VERSION="$(grep -E "Version[ \t]+=[ \t]+" doc.go|grep -Eo "[0-9.]+")"
           export W_PKG="github.com/hedzr/cmdr/conf"
           export LDFLAGS="-s -w \
             -X '$W_PKG.Githash=$GIT_REVISION' \
@@ -169,20 +180,53 @@ jobs:
           for dir in cli; do
             for GOOS in windows linux darwin; do
               for GOARCH in amd64 arm64; do
-                suf=; if [[ $GOOS == "windows" ]]; then suf=".exe"; if [ "$GOARCH" == "arm64" ]; then GOARCH=arm; fi; fi
+                suf=; suf2=tgz; if [[ $GOOS == "windows" ]]; then suf=".exe"; suf2=7z; if [ "$GOARCH" == "arm64" ]; then GOARCH=arm; fi; fi
                 GOOS=$GOOS GOARCH=$GOARCH go build -v -ldflags "$LDFLAGS" -o ./bin/$APP_NAME$suf ./$dir/$app/$dir/$app
                 chmod +x ./bin/$APP_NAME$suf
                 if [[ $GOOS == "windows" ]]; then
-                  7z a ./bin/$APP_NAME-$GOOS-$GOARCH$suf.7z ./bin/$APP_NAME$suf
-                  cd ci && 7z a ./bin/$APP_NAME-$GOOS-$GOARCH$suf.7z etc/* && cd ..
+                  7z a ./bin/$APP_NAME-$GOOS-$GOARCH$suf.$suf2 ./bin/$APP_NAME$suf
+                  cd ci && 7z a ./bin/$APP_NAME-$GOOS-$GOARCH$suf.$suf2 etc/* && cd ..
                 else
-                  tar -czf ./bin/$APP_NAME-$GOOS-$GOARCH$suf.tgz ./bin/$APP_NAME$suf -Cci etc
+                  tar -czf ./bin/$APP_NAME-$GOOS-$GOARCH$suf.$suf2 ./bin/$APP_NAME$suf -Cci etc
                 fi
+                sha256sum ./bin/$APP_NAME-$GOOS-$GOARCH$suf.$suf2 >> ./bin/binaries.asc
                 rm -f ./bin/$APP_NAME$suf
               done
             done
           done
           done
+
+      - name: bump homebrew-brew
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          mkdir .pr && cd .pr
+          if [ -f .pr/no-disabled ]; then
+            git clone https://hedzr:$GITHUB_TOKEN@github.com/hedzr/homebrew-brew.git
+            cd homebrew-brew
+            git config --unset-all http.https://github.com/.extraheader
+            git config user.name 'hedzr'
+            git config user.email 'hedzrz@gmail.com'
+            #
+            sed -i -r "s/v\d+\.\d+\.\d+/$RELEASE_VERSION/ig" Formular/faker.rb
+            sed -i -r "s///ig" Formular/faker.rb
+            #
+            git add .
+            git commit -m "bump to faker $RELEASE_VERSION"
+            git push --set-upstream https://hedzrz:$GITHUB_TOKEN@github.com/hedzr/homebrew-brew.git master
+          fi
+          # go get -v github.com/hedzr/go-bumper
+          wget https://github.com/hedzr/go-bumper/releases/download/${BUMPER_VER}/bumper-linux-amd64.tgz
+          tar -xf bumper-linux-amd64.tgz && mv bumper-linux-amd64 bumper
+          cd ..
+          .pr/bumper brew -act $ACTOR -am $ACTOR_EMAIL -f $APP_NAME \
+            -ref $GITHUB_REF -ver $RELEASE_VERSION -t hedzr/homebrew-brew \
+            --sha ./bin/binaries.asc \
+            --push
+
+      - name: bump launchpad
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          echo NOT YET
 
       - name: Upload artifacts
         uses: actions/upload-artifact@master
