@@ -216,9 +216,9 @@ jobs:
           fi
           # go get -v github.com/hedzr/go-bumper
           wget https://github.com/hedzr/go-bumper/releases/download/${BUMPER_VER}/bumper-linux-amd64.tgz
-          tar -xf bumper-linux-amd64.tgz && mv bumper-linux-amd64 bumper
+          tar -xf bumper-linux-amd64.tgz
           cd ..
-          .pr/bumper brew -act $ACTOR -am $ACTOR_EMAIL -f $APP_NAME \
+          .pr/bin/bumper brew -act $ACTOR -am $ACTOR_EMAIL -f $APP_NAME \
             -ref $GITHUB_REF -ver $RELEASE_VERSION -t hedzr/homebrew-brew \
             --sha ./bin/binaries.asc \
             --push
