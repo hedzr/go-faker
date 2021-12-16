@@ -252,6 +252,7 @@ jobs:
           .pr/bin/bumper brew -act $ACTOR -am $ACTOR_EMAIL -f $APP_NAME \
             -ref $GITHUB_REF -ver $RELEASE_VERSION -t $HOMEBREW_TAP \
             --sha $BINARIES_ASC \
+            --token ${{ secrets.GITHUB_TOKEN }} \
             --push
 
       - name: bump launchpad
