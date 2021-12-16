@@ -13,6 +13,20 @@ on:
 #on: [push, pull_request]
 
 jobs:
+  pre:
+    runs-on: ubuntu-latest
+    steps:
+      #      - name: Set Env
+      #        run: |
+      #          echo "HTTP_PROXY=http://192/168.65.1:7890" >> $GITHUB_ENV
+      #          echo "HTTPS_PROXY=http://192/168.65.1:7890" >> $GITHUB_ENV
+
+      - name: Display the Env
+        run: |
+          echo "GITHUB_TOKEN=${GITHUB_TOKEN}"
+          echo "HTTP_PROXY=${HTTP_PROXY}, HTTPS_PROXY=${HTTPS_PROXY}, "
+          python -c 'import socket; print([l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1], [[(s.connect(("114.114.114.114", 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) if l][0][0])'
+
   test:
     strategy:
       matrix:
@@ -74,16 +88,24 @@ jobs:
           path-to-profile: profile.cov
           parallel: true
 
-  build:
+  # notifies coveralls that all test jobs are finished
+  upload-coverage:
+    name: Upload coverage
     needs: coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: shogo82148/actions-goveralls@v1
+        with:
+          parallel-finished: true
+
+  release-build:
+    needs: upload-coverage
     env:
       ACTOR_EMAIL:  hedzrz@gmail.com
       BUMPER_VER:   v0.0.6
       HOMEBREW_TAP: hedzr/homebrew-brew
       BINARIES_ASC: ./bin/binaries.asc
-    #env:
-    #  GOPATH: ${{ github.workspace }}
-    #  GO111MODULE: off
+      #  GO111MODULE: off
     runs-on: ubuntu-latest
     steps:
       - name: Install Go
@@ -101,7 +123,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
 
-      - name: Set env
+      - name: Set Env
         run: |
           RELEASE_VERSION=${GITHUB_REF#refs/*/}
           echo "RELEASE_VERSION=${RELEASE_VERSION}" >> $GITHUB_ENV
@@ -276,17 +298,6 @@ jobs:
 #          asset_path: bin/*
 #          asset_name: my-artifact.zip
 #          asset_content_type: application/zip
-
-  # notifies coveralls that all test jobs are finished
-  finish:
-    name: Finish
-    needs: coverage
-    runs-on: ubuntu-latest
-    steps:
-      - uses: shogo82148/actions-goveralls@v1
-        with:
-          parallel-finished: true
-
 
 
 

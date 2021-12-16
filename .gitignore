@@ -8,3 +8,6 @@ bin/conf.d/
 
 # sftp config
 **/sftp.json
+
+*.local
+workflow/
