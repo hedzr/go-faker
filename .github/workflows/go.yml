@@ -13,19 +13,19 @@ on:
 #on: [push, pull_request]
 
 jobs:
-  pre:
-    runs-on: ubuntu-latest
-    steps:
-      #      - name: Set Env
-      #        run: |
-      #          echo "HTTP_PROXY=http://192/168.65.1:7890" >> $GITHUB_ENV
-      #          echo "HTTPS_PROXY=http://192/168.65.1:7890" >> $GITHUB_ENV
-
-      - name: Display the Env
-        run: |
-          echo "GITHUB_TOKEN=${GITHUB_TOKEN}"
-          echo "HTTP_PROXY=${HTTP_PROXY}, HTTPS_PROXY=${HTTPS_PROXY}, "
-          python -c 'import socket; print([l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1], [[(s.connect(("114.114.114.114", 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) if l][0][0])'
+  #  pre:
+  #    runs-on: ubuntu-latest
+  #    steps:
+  #      #      - name: Set Env
+  #      #        run: |
+  #      #          echo "HTTP_PROXY=http://192/168.65.1:7890" >> $GITHUB_ENV
+  #      #          echo "HTTPS_PROXY=http://192/168.65.1:7890" >> $GITHUB_ENV
+  #
+  #      - name: Display the Env
+  #        run: |
+  #          echo "GITHUB_TOKEN=${GITHUB_TOKEN}"
+  #          echo "HTTP_PROXY=${HTTP_PROXY}, HTTPS_PROXY=${HTTPS_PROXY}, "
+  #          python -c 'import socket; print([l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1], [[(s.connect(("114.114.114.114", 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) if l][0][0])'
 
   test:
     strategy:
