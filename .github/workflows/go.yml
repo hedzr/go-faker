@@ -78,7 +78,7 @@ jobs:
     needs: coverage
     env:
       ACTOR_EMAIL:  hedzrz@gmail.com
-      BUMPER_VER:   v0.0.5
+      BUMPER_VER:   v0.0.6
       HOMEBREW_TAP: hedzr/homebrew-brew
       BINARIES_ASC: ./bin/binaries.asc
     #env:
