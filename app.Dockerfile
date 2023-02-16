@@ -74,7 +74,9 @@ RUN export GOVER=$(go version) \
     && CGO_ENABLED=0 go build -v -tags docker -tags k8s,istio -tags cmdr-apps \
        -ldflags "$LDFLAGS" \
        -o $TGT/var/lib/$APPNAME/$APPNAME ./cli/app/cli/app
-RUN ls -la $TGT $TGT/var/lib/$APPNAME $TGT/etc/$APPNAME
+RUN ls -la $TGT $TGT/var/lib/$APPNAME $TGT/etc/$APPNAME \
+    && $TGT/var/lib/$APPNAME/$APPNAME --version \
+    && $TGT/var/lib/$APPNAME/$APPNAME --build-info
 # RUN ldd --help
 # RUN ldd $TGT/var/lib/$APPNAME/$APPNAME   # need musl-utils & musl-dev
 # RUN strace $TGT/var/lib/$APPNAME/$APPNAME  # need strace
