@@ -3,7 +3,7 @@
 [![Go](https://github.com/hedzr/go-faker/actions/workflows/go.yml/badge.svg)](https://github.com/hedzr/go-faker/actions/workflows/go.yml)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/hedzr/go-faker.svg?label=release)](https://github.com/hedzr/go-faker/releases)
 [![](https://img.shields.io/badge/go-dev-green)](https://pkg.go.dev/github.com/hedzr/go-faker)
-  [![Docker Pulls](https://img.shields.io/docker/pulls/hedzr/faker)](https://hub.docker.com/r/hedzr/faker)
+[![Docker Pulls](https://img.shields.io/docker/pulls/hedzr/faker)](https://hub.docker.com/r/hedzr/faker)
 ![Docker Image Version (latest semver)](https://img.shields.io/docker/v/hedzr/faker)
 ![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/hedzr/faker)
 
@@ -23,7 +23,7 @@
 `faker` is a CLI app which will generate the faked records such as names, addresses, and phone numbers.
 
 > powered by [cmdr](https://github.com/hedzr/cmdr).  
-> based on [dmgk/faker](https://github.com/dmgk/faker).  
+> based on [dmgk/faker](https://github.com/dmgk/faker).
 
 ## Features
 
@@ -86,7 +86,8 @@ Following the documentation at [dmgk/faker](https://github.com/dmgk/faker) too.
 
 #### Output Formats
 
-There are several output formats: `json-compact`(_default_), `json`, `yaml` or `plain`. You may specify its by `--json`, `--yaml` or `--plain`.
+There are several output formats: `json-compact`(_default_), `json`, `yaml` or `plain`. You may specify its
+by `--json`, `--yaml` or `--plain`.
 
 ```bash
 ❯ ./bin/faker_darwin-amd64 c -10 --json            # shortcut to 'code'
@@ -168,8 +169,6 @@ Totally, these records have the feature:
 - Number
 - PhoneNumber
 
-
-
 ## Installations & Usages
 
 ### Homebrew
@@ -189,10 +188,10 @@ brew install faker
 
 Now, `faker` is available.
 
-
 ### DockerHub or Github Docker Registry
 
 Pull the docker image:
+
 ```bash
 docker pull hedzr/faker              # from Docker Hub
 docker pull ghcr.io/hedzr/cli/faker  # from Github Packages
@@ -213,11 +212,11 @@ todo
 
 ### Else build from source codes
 
-
 ## Shell Completions
 
-faker will detect the current SHELL environment and generate the auto-completion
-script.
+`faker` will detect the current SHELL environment and generate the auto-completion script.
+
+If that's not ready, install the auto-completion alternative file for your shell environment manually.
 
 ### zsh
 
@@ -228,7 +227,7 @@ generating `_faker` and move it into zsh auto-completion directory:
 [ -d $HOME/.oh-my-zsh/completions ] || mkdir $HOME/.oh-my-zsh/completions
 faker gen shell >_faker && sudo mv _faker $HOME/.oh-my-zsh/completions/
 
-# Or use your personal folder
+# Or use your personal folder | you need install the folder into $fpath array
 mkdir $HOME/.zsh-auto-completions
 faker gen shell > $HOME/.zsh-auto-completions/_faker
 # And append this line into $HOME/.zshrc
@@ -241,9 +240,7 @@ fpath=($fpath $HOME/.zsh-auto-completions)
 
 ### bash
 
-Ready with `faker gen sh --bash`.
-
-
+Getting ready with `faker gen sh --bash`.
 
 ## Getting Started (for Developer)
 
@@ -254,6 +251,15 @@ To run the CLI app:
 go generate ./...          # run it once at least, for gen the swagger-doc files from skeletons
 go run ./cli/app/cli/app   # build the mainly main.go
 ```
+
+### fish
+
+Getting ready with `faker gen sh --fish`
+
+### Powershell
+
+I'm not sure I've written those codes ok for powershell because it haven't been test enough since the os env is hard to prepare.
+
 
 ### Use Makefile for building and CI
 
