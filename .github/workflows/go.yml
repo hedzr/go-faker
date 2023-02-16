@@ -134,9 +134,14 @@ jobs:
           IMAGE_TAG=${GITHUB_REF#*/}
           IMAGE_TAG=${IMAGE_TAG#*/}
           IMAGE_TAG=$(echo $IMAGE_TAG | sed -e "s#^v##")
+          echo "Using IMAGE_NAME: $IMAGE_NAME"
           echo "Using IMAGE_TAG: $IMAGE_TAG"
+          echo "Using ACTOR: $ACTOR"
+          which git
+          which date
           #
-          TIMESTAMP=$(date -Iseconds)
+          TIMESTAMP="$(date -u -Iseconds)"
+          TIMEZONE="$(cat /etc/timezone)"
           GIT_VERSION="$(git describe --tags --abbrev=0 2>/dev/null || echo "$VERSION")"
           GIT_REVISION="$(git rev-parse --short HEAD)"
           GIT_SUMMARY="$(git describe --tags --dirty --always)"
