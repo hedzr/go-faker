@@ -70,6 +70,7 @@ RUN export GOVER=$(go version) \
         	-X \"$W_PKG.Buildstamp=$BUILDTIME\" -X \"$W_PKG.Githash=$GIT_REVISION\" \
         	-X \"$W_PKG.Version=$VERSION\" -X \"$W_PKG.GoVersion=$GOVER\" " \
     && echo "Using APPNAME=$APPNAME VERSION=$VERSION" \
+    && git config --global --add safe.directory /var/lib/faker \
     && CGO_ENABLED=0 go build -v -tags docker -tags k8s,istio -tags cmdr-apps \
        -ldflags "$LDFLAGS" \
        -o $TGT/var/lib/$APPNAME/$APPNAME ./cli/app/cli/app
@@ -93,27 +94,27 @@ ARG APPNAME
 ARG VERSION
 ARG PORT
 
-LABEL com.hedzr.image.authors="hedzr <hedzrz@gmail.com>"
-LABEL com.hedzr.image.description="microservice docker image with hedzr/cmdr"
-LABEL description="microservice docker image with hedzr/cmdr"
-LABEL version="$VERSION"
+LABEL com.hedzr.image.authors="hedzr <hedzrz@gmail.com>" \
+      com.hedzr.image.description="microservice docker image with hedzr/cmdr" \
+      description="microservice docker image with hedzr/cmdr" \
+      version="$VERSION"
 
 # Import the user and group files from the builder.
 COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /etc/group /etc/group
 
-ENV WF_WFS_CORE_INF_DB_DRIVER=""
-ENV WF_WFS_CORE_INF_DB_MYSQL_DSN=""
-ENV WF_WFS_CORE_INF_CACHE_DEVEL_PEERS=""
-ENV WF_WFS_CORE_INF_CACHE_DEVEL_USER=""
-ENV WF_WFS_CORE_INF_CACHE_DEVEL_PASS=""
-ENV WF_WFS_CORE_INF_PROD_DEVEL_PEERS=""
-ENV WF_WFS_CORE_INF_PROD_DEVEL_USER=""
-ENV WF_WFS_CORE_INF_PROD_DEVEL_PASS=""
-ENV WF_WFS_CORE_INF_DOCKER_DEVEL_PEERS=""
-ENV WF_WFS_CORE_INF_DOCKER_DEVEL_USER=""
-ENV WF_WFS_CORE_INF_DOCKER_DEVEL_PASS=""
-ENV APP_HOME="/var/lib/$APPNAME" TGT=/app \
+ENV WF_WFS_CORE_INF_DB_DRIVER="" \
+    WF_WFS_CORE_INF_DB_MYSQL_DSN="" \
+    WF_WFS_CORE_INF_CACHE_DEVEL_PEERS="" \
+    WF_WFS_CORE_INF_CACHE_DEVEL_USER="" \
+    WF_WFS_CORE_INF_CACHE_DEVEL_PASS="" \
+    WF_WFS_CORE_INF_PROD_DEVEL_PEERS="" \
+    WF_WFS_CORE_INF_PROD_DEVEL_USER="" \
+    WF_WFS_CORE_INF_PROD_DEVEL_PASS="" \
+    WF_WFS_CORE_INF_DOCKER_DEVEL_PEERS="" \
+    WF_WFS_CORE_INF_DOCKER_DEVEL_USER="" \
+    WF_WFS_CORE_INF_DOCKER_DEVEL_PASS="" \
+    APP_HOME="/var/lib/$APPNAME" TGT=/app \
     USER="${USERNAME:-appuser}" \
     UID="${USER_ID:-500}" GID="${GROUP_ID:-500}"
 

@@ -109,6 +109,7 @@ jobs:
             ${{ runner.os }}-go-
 
       - name: Set Env
+        shell: bash
         run: |
           RELEASE_VERSION=${GITHUB_REF#refs/*/}
           echo "RELEASE_VERSION=${RELEASE_VERSION}" >> $GITHUB_ENV
@@ -125,6 +126,7 @@ jobs:
           #IMAGE_TAG:
           #PORT:
           #VERSION:
+        shell: bash
         run: |
           IMAGE_NAME="${GITHUB_REPOSITORY##*/}"
           IMAGE_NAME=$(echo $IMAGE_NAME | sed -re 's/^(go-)//' | sed -re 's/(-go)$//' | tr '[:upper:]' '[:lower:]')
@@ -145,6 +147,12 @@ jobs:
           export GIT_SUMMARY="$(git describe --tags --dirty --always)"
           export GIT_DESC="$(git log --oneline -1)"
           export BUILDER_COMMENT=""
+          echo "Using TIMESTAMP: $TIMESTAMP"
+          echo "Using TIMEZONE: $TIMEZONE"
+          echo "Using GIT_VERSION: $GIT_VERSION"
+          echo "Using GIT_REVISION: $GIT_REVISION"
+          echo "Using GIT_SUMMARY: $GIT_SUMMARY"
+          echo "Using GIT_DESC: $GIT_DESC"
           #
           # export VERSION="$(grep -E "Version[ \t]+=[ \t]+" doc.go|grep -Eo "[0-9.]+")"
           docker build -f app.Dockerfile \
@@ -176,6 +184,7 @@ jobs:
 
       - name: Build
         # if: startsWith(github.ref, 'refs/tags/v')
+        shell: bash
         run: |
           APP_NAME="${GITHUB_REPOSITORY##*/}"
           APP_NAME=$(echo $APP_NAME | sed 's/^(go-)//' | sed 's/(-go)$//' | tr '[:upper:]' '[:lower:]')
