@@ -2,6 +2,7 @@ package cmdrrel
 
 import (
 	"github.com/hedzr/cmdr"
+
 	"github.com/hedzr/go-faker/cli/app"
 )
 
@@ -16,30 +17,30 @@ func onAppExit(cmd *cmdr.Command, args []string) {
 
 func onServerPostStop(cmd *cmdr.Command, args []string) {
 	cmdr.Logger.Debugf("onServerPostStop")
-	//internal.App().Close()
+	// internal.App().Close()
 }
 
-//func host2ip(host string) {
+// func host2ip(host string) {
 //	addr, err := net.LookupIP(host)
 //	if err != nil {
 //		fmt.Println("  ? Unknown host")
 //	} else {
 //		fmt.Printf("  - IP address of %q: %q\n", host, addr)
 //	}
-//}
+// }
 
 // onServerPreStart is earlier than onAppStart.
 func onServerPreStart(cmd *cmdr.Command, args []string) (err error) {
 	//	fmt.Printf(`
 	//
 	//
-	//********************************************************************
+	// ********************************************************************
 	//        SERVER STARTUP AT: %s
 	//                 BUILT AT: %s
 	//              APP VERSION: %s
 	//               GIT COMMIT: %s
 	//
-	//`,
+	// `,
 	//		time.Now().UTC().Format(time.RFC1123Z), // or: RFC3339
 	//		conf.Buildstamp, conf.Version, conf.Githash)
 	//
@@ -74,6 +75,6 @@ func onServerPreStart(cmd *cmdr.Command, args []string) (err error) {
 
 	cmdr.Set("app-module-name", app.AppModuleName)
 	cmdr.Set("app-title", app.AppTitle)
-	//err = internal.App().Init(cmd, args)
+	// err = internal.App().Init(cmd, args)
 	return
 }

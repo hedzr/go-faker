@@ -2,9 +2,10 @@ package logic
 
 import (
 	"fmt"
-	"github.com/hedzr/cmdr"
 	"sort"
 	"strings"
+
+	"github.com/hedzr/cmdr"
 )
 
 func dumpIt(cmd *cmdr.Command, m map[string]struct {

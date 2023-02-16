@@ -2,32 +2,33 @@ package logic
 
 import (
 	"fmt"
+
 	"github.com/hedzr/cmdr"
 	"syreclabs.com/go/faker"
 )
 
 func genAddr(root *cmdr.RootCmdOpt) {
 	oo := faker.Address()
-	//sb.WriteString(fmt.Sprintf("  City                : %v\n", oo.City()))                // => "North Dessie"
-	//sb.WriteString(fmt.Sprintf("  StreetName          : %v\n", oo.StreetName()))          // => "Buckridge Lakes"
-	//sb.WriteString(fmt.Sprintf("  StreetAddress       : %v\n", oo.StreetAddress()))       // => "586 Sylvester Turnpike"
-	//sb.WriteString(fmt.Sprintf("  SecondaryAddress    : %v\n", oo.SecondaryAddress()))    // => "Apt. 411"
-	//sb.WriteString(fmt.Sprintf("  BuildingNumber      : %v\n", oo.BuildingNumber()))      // => "754"
-	//sb.WriteString(fmt.Sprintf("  Postcode            : %v\n", oo.Postcode()))            // => "31340"
-	//sb.WriteString(fmt.Sprintf("  PostcodeByState     : %v\n", oo.PostcodeByState("IN"))) // => "46511"
-	//sb.WriteString(fmt.Sprintf("  ZipCode             : %v\n", oo.ZipCode()))             // ZipCode is an alias for Postcode.
-	//sb.WriteString(fmt.Sprintf("  ZipCodeByState      : %v\n", oo.ZipCodeByState("IN")))  // ZipCodeByState is an alias for PostcodeByState.
-	//sb.WriteString(fmt.Sprintf("  TimeZone            : %v\n", oo.TimeZone()))            // => "Asia/Taipei"
-	//sb.WriteString(fmt.Sprintf("  CityPrefix          : %v\n", oo.CityPrefix()))          // => "East"
-	//sb.WriteString(fmt.Sprintf("  CitySuffix          : %v\n", oo.CitySuffix()))          // => "town"
-	//sb.WriteString(fmt.Sprintf("  StreetSuffix        : %v\n", oo.StreetSuffix()))        // => "Square"
-	//sb.WriteString(fmt.Sprintf("  State               : %v\n", oo.State()))               // => "Maryland"
-	//sb.WriteString(fmt.Sprintf("  StateAbbr           : %v\n", oo.StateAbbr()))           // => "IL"
-	//sb.WriteString(fmt.Sprintf("  Country             : %v\n", oo.Country()))             // => "Uruguay"
-	//sb.WriteString(fmt.Sprintf("  CountryCode         : %v\n", oo.CountryCode()))         // => "JP"
-	//sb.WriteString(fmt.Sprintf("  Latitude            : %v\n", oo.Latitude()))            // => (float32) -38.811367
-	//sb.WriteString(fmt.Sprintf("  Longitude           : %v\n", oo.Longitude()))           // => (float32) 89.2171
-	//sb.WriteString(fmt.Sprintf("  String              : %v\n", oo.String()))              // => "6071 Heaney Island Suite 553, Ebbaville Texas 37307"
+	// sb.WriteString(fmt.Sprintf("  City                : %v\n", oo.City()))                // => "North Dessie"
+	// sb.WriteString(fmt.Sprintf("  StreetName          : %v\n", oo.StreetName()))          // => "Buckridge Lakes"
+	// sb.WriteString(fmt.Sprintf("  StreetAddress       : %v\n", oo.StreetAddress()))       // => "586 Sylvester Turnpike"
+	// sb.WriteString(fmt.Sprintf("  SecondaryAddress    : %v\n", oo.SecondaryAddress()))    // => "Apt. 411"
+	// sb.WriteString(fmt.Sprintf("  BuildingNumber      : %v\n", oo.BuildingNumber()))      // => "754"
+	// sb.WriteString(fmt.Sprintf("  Postcode            : %v\n", oo.Postcode()))            // => "31340"
+	// sb.WriteString(fmt.Sprintf("  PostcodeByState     : %v\n", oo.PostcodeByState("IN"))) // => "46511"
+	// sb.WriteString(fmt.Sprintf("  ZipCode             : %v\n", oo.ZipCode()))             // ZipCode is an alias for Postcode.
+	// sb.WriteString(fmt.Sprintf("  ZipCodeByState      : %v\n", oo.ZipCodeByState("IN")))  // ZipCodeByState is an alias for PostcodeByState.
+	// sb.WriteString(fmt.Sprintf("  TimeZone            : %v\n", oo.TimeZone()))            // => "Asia/Taipei"
+	// sb.WriteString(fmt.Sprintf("  CityPrefix          : %v\n", oo.CityPrefix()))          // => "East"
+	// sb.WriteString(fmt.Sprintf("  CitySuffix          : %v\n", oo.CitySuffix()))          // => "town"
+	// sb.WriteString(fmt.Sprintf("  StreetSuffix        : %v\n", oo.StreetSuffix()))        // => "Square"
+	// sb.WriteString(fmt.Sprintf("  State               : %v\n", oo.State()))               // => "Maryland"
+	// sb.WriteString(fmt.Sprintf("  StateAbbr           : %v\n", oo.StateAbbr()))           // => "IL"
+	// sb.WriteString(fmt.Sprintf("  Country             : %v\n", oo.Country()))             // => "Uruguay"
+	// sb.WriteString(fmt.Sprintf("  CountryCode         : %v\n", oo.CountryCode()))         // => "JP"
+	// sb.WriteString(fmt.Sprintf("  Latitude            : %v\n", oo.Latitude()))            // => (float32) -38.811367
+	// sb.WriteString(fmt.Sprintf("  Longitude           : %v\n", oo.Longitude()))           // => (float32) 89.2171
+	// sb.WriteString(fmt.Sprintf("  String              : %v\n", oo.String()))              // => "6071 Heaney Island Suite 553, Ebbaville Texas 37307"
 	m := map[string]struct {
 		label   string
 		fn      func() string
@@ -56,7 +57,7 @@ func genAddr(root *cmdr.RootCmdOpt) {
 		"String":            {"String", oo.String, "", []string{}},
 	}
 
-	cc := root.NewSubCommand("addr", "a", "address").
+	cc := cmdr.NewSubCmd().Titles("addr", "a", "address").
 		Description("generate address").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
@@ -83,7 +84,7 @@ func genAddr(root *cmdr.RootCmdOpt) {
 			str := dumpIt(cmd, m)
 			outputWithFormat(str, "Address")
 			return
-		})
+		}).AttachTo(root)
 
 	for k, v := range m {
 		cmdr.NewBool().

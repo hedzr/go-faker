@@ -2,6 +2,7 @@ package logic
 
 import (
 	"fmt"
+
 	"github.com/hedzr/cmdr"
 	"syreclabs.com/go/faker"
 )
@@ -28,21 +29,21 @@ func genInternet(root *cmdr.RootCmdOpt) {
 		"url":           {"Url", oo.Url, "u", []string{}},
 		"slug":          {"Slug", oo.Slug, "ss", []string{}},
 	}
-	//sb.WriteString(fmt.Sprintf("    Email               : %v\n", oo.Email()))         // => "maritza@farrell.org"
-	//sb.WriteString(fmt.Sprintf("    FreeEmail           : %v\n", oo.FreeEmail()))     // => "sven_rice@hotmail.com"
-	//sb.WriteString(fmt.Sprintf("    SafeEmail           : %v\n", oo.SafeEmail()))     // => "theron.nikolaus@example.net"
-	//sb.WriteString(fmt.Sprintf("    UserName            : %v\n", oo.UserName()))      // => "micah_pfeffer"
-	//sb.WriteString(fmt.Sprintf("    Password            : %v\n", oo.Password(8, 14))) // => "s5CzvVp6Ye"
-	//sb.WriteString(fmt.Sprintf("    DomainName          : %v\n", oo.DomainName()))    // => "rolfson.info"
-	//sb.WriteString(fmt.Sprintf("    DomainWord          : %v\n", oo.DomainWord()))    // => "heller"
-	//sb.WriteString(fmt.Sprintf("    DomainSuffix        : %v\n", oo.DomainSuffix()))  // => "net"
-	//sb.WriteString(fmt.Sprintf("    MacAddress          : %v\n", oo.MacAddress()))    // => "15:a9:83:29:76:26"
-	//sb.WriteString(fmt.Sprintf("    IpV4Address         : %v\n", oo.IpV4Address()))   // => "121.204.82.227"
-	//sb.WriteString(fmt.Sprintf("    IpV6Address         : %v\n", oo.IpV6Address()))   // => "c697:392f:6a0e:bf6d:77e1:714a:10ab:0dbc"
-	//sb.WriteString(fmt.Sprintf("    Url                 : %v\n", oo.Url()))           // => "http://sporerhamill.net/kyla.schmitt"
-	//sb.WriteString(fmt.Sprintf("    Slug                : %v\n", oo.Slug()))          // => "officiis-commodi"
+	// sb.WriteString(fmt.Sprintf("    Email               : %v\n", oo.Email()))         // => "maritza@farrell.org"
+	// sb.WriteString(fmt.Sprintf("    FreeEmail           : %v\n", oo.FreeEmail()))     // => "sven_rice@hotmail.com"
+	// sb.WriteString(fmt.Sprintf("    SafeEmail           : %v\n", oo.SafeEmail()))     // => "theron.nikolaus@example.net"
+	// sb.WriteString(fmt.Sprintf("    UserName            : %v\n", oo.UserName()))      // => "micah_pfeffer"
+	// sb.WriteString(fmt.Sprintf("    Password            : %v\n", oo.Password(8, 14))) // => "s5CzvVp6Ye"
+	// sb.WriteString(fmt.Sprintf("    DomainName          : %v\n", oo.DomainName()))    // => "rolfson.info"
+	// sb.WriteString(fmt.Sprintf("    DomainWord          : %v\n", oo.DomainWord()))    // => "heller"
+	// sb.WriteString(fmt.Sprintf("    DomainSuffix        : %v\n", oo.DomainSuffix()))  // => "net"
+	// sb.WriteString(fmt.Sprintf("    MacAddress          : %v\n", oo.MacAddress()))    // => "15:a9:83:29:76:26"
+	// sb.WriteString(fmt.Sprintf("    IpV4Address         : %v\n", oo.IpV4Address()))   // => "121.204.82.227"
+	// sb.WriteString(fmt.Sprintf("    IpV6Address         : %v\n", oo.IpV6Address()))   // => "c697:392f:6a0e:bf6d:77e1:714a:10ab:0dbc"
+	// sb.WriteString(fmt.Sprintf("    Url                 : %v\n", oo.Url()))           // => "http://sporerhamill.net/kyla.schmitt"
+	// sb.WriteString(fmt.Sprintf("    Slug                : %v\n", oo.Slug()))          // => "officiis-commodi"
 
-	cc := root.NewSubCommand("internet", "i").
+	cc := cmdr.NewSubCmd().Titles("internet", "i").
 		Description("generate Internet names").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
@@ -50,7 +51,8 @@ func genInternet(root *cmdr.RootCmdOpt) {
 			str := dumpIt(cmd, m)
 			outputWithFormat(str, "Internet")
 			return
-		})
+		}).
+		AttachTo(root)
 	for k, v := range m {
 		cmdr.NewBool().
 			Titles(k, v.short, v.aliases...).
@@ -62,14 +64,14 @@ func genInternet(root *cmdr.RootCmdOpt) {
 		Titles("min", "min").
 		Group("").
 		Placeholder("Num").
-		//Range(1,64).
+		// Range(1,64).
 		Description("minimal length of Password field").
 		AttachTo(cc)
 	cmdr.NewInt(32).
 		Titles("max", "max").
 		Group("").
 		Placeholder("Num").
-		//Range(1,64).
+		// Range(1,64).
 		Description("maximal length of Password field").
 		AttachTo(cc)
 }

@@ -2,14 +2,15 @@ package logic
 
 import (
 	"fmt"
+
 	"github.com/hedzr/cmdr"
 	"syreclabs.com/go/faker"
 )
 
 func genAvatar(root *cmdr.RootCmdOpt) {
 	oo := faker.Avatar()
-	//sb.WriteString(fmt.Sprintf("    Jpeg                : %v\n", oo.Url("jpg", 100, 200))) // => "Alphazap"
-	//sb.WriteString(fmt.Sprintf("    String              : %v\n", oo.String()))             // => "Tempsoft 4.51"
+	// sb.WriteString(fmt.Sprintf("    Jpeg                : %v\n", oo.Url("jpg", 100, 200))) // => "Alphazap"
+	// sb.WriteString(fmt.Sprintf("    String              : %v\n", oo.String()))             // => "Tempsoft 4.51"
 	m := map[string]struct {
 		label   string
 		fn      func() string
@@ -25,7 +26,7 @@ func genAvatar(root *cmdr.RootCmdOpt) {
 		"string": {"String", oo.String, "ss", []string{}},
 	}
 
-	cc := root.NewSubCommand("avatar", "av").
+	cc := cmdr.NewSubCmd().Titles("avatar", "av").
 		Description("generate Avatar names").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
@@ -33,19 +34,20 @@ func genAvatar(root *cmdr.RootCmdOpt) {
 			str := dumpIt(cmd, m)
 			outputWithFormat(str, "Avatar")
 			return
-		})
+		}).
+		AttachTo(root)
 
-	//cmdr.NewBool().
+	// cmdr.NewBool().
 	//	Titles("jpeg", "j", "jpg").
 	//	Description("generates JPEG field", "").
 	//	ToggleGroup("Type").
 	//	AttachTo(cc)
-	//cmdr.NewBool().
+	// cmdr.NewBool().
 	//	Titles("png", "p").
 	//	Description("generates PNG field", "").
 	//	ToggleGroup("Type").
 	//	AttachTo(cc)
-	//cmdr.NewBool().
+	// cmdr.NewBool().
 	//	Titles("string", "ss").
 	//	Description("generates String (PNG) field", "").
 	//	ToggleGroup("Type").
@@ -63,19 +65,19 @@ func genAvatar(root *cmdr.RootCmdOpt) {
 		Titles("width", "W").
 		Group("").
 		Placeholder("Num").
-		//Range(1,64).
+		// Range(1,64).
 		Description("image width").
 		AttachTo(cc)
 	cmdr.NewInt(240).
 		Titles("height", "H").
 		Group("").
 		Placeholder("Num").
-		//Range(1,64).
+		// Range(1,64).
 		Description("image height").
 		AttachTo(cc)
 }
 
-//func dumpAvatar(oo faker.FakeAvatar, cmd *cmdr.Command) string {
+// func dumpAvatar(oo faker.FakeAvatar, cmd *cmdr.Command) string {
 //	var sb strings.Builder
 //	typ := cmdr.GetStringRP(cmd.GetDottedNamePath(), "Type")
 //	if typ != "" {
@@ -92,4 +94,4 @@ func genAvatar(root *cmdr.RootCmdOpt) {
 //		}
 //	}
 //	return sb.String()
-//}
+// }

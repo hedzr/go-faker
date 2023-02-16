@@ -3,13 +3,14 @@ package logic
 import (
 	"bufio"
 	"fmt"
-	"github.com/hedzr/cmdr"
 	"io"
 	"math"
 	"os"
 	"strings"
-	"syreclabs.com/go/faker"
 	"time"
+
+	"github.com/hedzr/cmdr"
+	"syreclabs.com/go/faker"
 )
 
 func dumpHacker(oo faker.FakeHacker) string {
@@ -26,7 +27,7 @@ func dumpHacker(oo faker.FakeHacker) string {
 
 func genHackers(root *cmdr.RootCmdOpt) {
 
-	root.NewSubCommand("hacker", "hh", "hack").
+	cmdr.NewSubCmd().Titles("hacker", "hh", "hack").
 		Description("generate Hacker names").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
@@ -44,9 +45,10 @@ func genHackers(root *cmdr.RootCmdOpt) {
 			//        "I'll reboot the primary SMTP feed, that should monitor the XML protocol!`",
 			//    }
 			return
-		})
+		}).
+		AttachTo(root)
 
-	root.NewSubCommand("hacker-phrases", "hp").
+	cmdr.NewSubCmd().Titles("hacker-phrases", "hp").
 		Description("generate Hacker Phrases names").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
@@ -59,9 +61,10 @@ func genHackers(root *cmdr.RootCmdOpt) {
 
 			fmt.Println(strings.Join(phrases[:], "; "))
 			return
-		})
+		}).
+		AttachTo(root)
 
-	root.NewSubCommand("hacker-phrases-colored", "hhc").
+	cmdr.NewSubCmd().Titles("hacker-phrases-colored", "hhc").
 		Description("generate Colored Hacker Phrases names").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
@@ -74,11 +77,11 @@ func genHackers(root *cmdr.RootCmdOpt) {
 
 			output := strings.Join(phrases[:], "; ")
 
-			//r, g, b := 255, 215, 0 //gold color
+			// r, g, b := 255, 215, 0 //gold color
 			//
-			//for j := 0; j < len(output); j++ {
+			// for j := 0; j < len(output); j++ {
 			//	fmt.Printf("\033[38;2;%d;%d;%dm%c\033[0m", r, g, b, output[j])
-			//}
+			// }
 
 			for j := 0; j < len(output); j++ {
 				r, g, b := rgb(j)
@@ -86,9 +89,10 @@ func genHackers(root *cmdr.RootCmdOpt) {
 			}
 			fmt.Println()
 			return
-		})
+		}).
+		AttachTo(root)
 
-	hhp := root.NewSubCommand("hacker-phrases-colored-piped", "hhp").
+	hhp := cmdr.NewSubCmd().Titles("hacker-phrases-colored-piped", "hhp").
 		Description("generate Colored Hacker Phrases names, let's work as a pipe").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
@@ -132,7 +136,8 @@ func genHackers(root *cmdr.RootCmdOpt) {
 
 			printZ(output)
 			return
-		})
+		}).
+		AttachTo(root)
 
 	cmdr.NewBool().
 		Titles("just-in-time", "j").

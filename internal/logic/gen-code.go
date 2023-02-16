@@ -2,14 +2,15 @@ package logic
 
 import (
 	"fmt"
-	"github.com/hedzr/cmdr"
 	"strings"
+
+	"github.com/hedzr/cmdr"
 	"syreclabs.com/go/faker"
 )
 
 func genCode(root *cmdr.RootCmdOpt) {
 
-	cc := root.NewSubCommand("code", "c", "codes").
+	cc := cmdr.NewSubCmd().Titles("code", "c", "codes").
 		Description("generate Codes (ISBN10, ISBN13, EAN13, EAN8, RUT, ABN)").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
@@ -22,7 +23,8 @@ func genCode(root *cmdr.RootCmdOpt) {
 			// fmt.Printf("    ISBN13        : %v\n", oo.Isbn13())
 			// fmt.Printf("    Type          : %v / %v / %v\n", cmdr.GetStringRP(cmd.GetDottedNamePath(), "Type"), cmd.GetDottedNamePath(), cmdr.GetStringR("oo.Type"))
 			return
-		})
+		}).
+		AttachTo(root)
 
 	cmdr.NewBool().
 		Titles("isbn10", "10").

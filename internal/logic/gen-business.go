@@ -2,6 +2,7 @@ package logic
 
 import (
 	"fmt"
+
 	"github.com/hedzr/cmdr"
 	"syreclabs.com/go/faker"
 )
@@ -18,11 +19,11 @@ func genBusiness(root *cmdr.RootCmdOpt) {
 		"credit-card-expiry-date": {"CreditCardExpiryDate", oo.CreditCardExpiryDate, "cced", []string{}},
 		"credit-card-type":        {"CreditCardType", oo.CreditCardType, "cct", []string{}},
 	}
-	//sb.WriteString(fmt.Sprintf("    CreditCardNumber            : %v\n", oo.CreditCardNumber()))
-	//sb.WriteString(fmt.Sprintf("    CreditCardExpiryDate        : %v\n", oo.CreditCardExpiryDate()))
-	//sb.WriteString(fmt.Sprintf("    CreditCardType              : %v\n", oo.CreditCardType()))
+	// sb.WriteString(fmt.Sprintf("    CreditCardNumber            : %v\n", oo.CreditCardNumber()))
+	// sb.WriteString(fmt.Sprintf("    CreditCardExpiryDate        : %v\n", oo.CreditCardExpiryDate()))
+	// sb.WriteString(fmt.Sprintf("    CreditCardType              : %v\n", oo.CreditCardType()))
 
-	cc := root.NewSubCommand("business", "bz", "biz", "credit-card").
+	cc := cmdr.NewSubCmd().Titles("business", "bz", "biz", "credit-card").
 		Description("generate Business names").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
@@ -30,7 +31,8 @@ func genBusiness(root *cmdr.RootCmdOpt) {
 			str := dumpIt(cmd, m)
 			outputWithFormat(str, "Business")
 			return
-		})
+		}).
+		AttachTo(root)
 	for k, v := range m {
 		cmdr.NewBool().
 			Titles(k, v.short, v.aliases...).

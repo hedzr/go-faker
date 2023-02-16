@@ -3,11 +3,12 @@ package logic
 import (
 	"encoding/json"
 	"fmt"
+	"regexp"
+	"strings"
+
 	"github.com/hedzr/cmdr"
 	"github.com/hedzr/log"
 	"gopkg.in/yaml.v3"
-	"regexp"
-	"strings"
 )
 
 // egrepReplace compile pattern with POSIX ERE (egrep) syntax
@@ -65,7 +66,7 @@ func outputWithFormat(str, header string) {
 		sb.WriteString(header + ":\n")
 		sb.WriteString(str)
 		s := sb.String()
-		//fmt.Println(s)
+		// fmt.Println(s)
 		obj := fromYAMLString(s)
 		switch format {
 		case "yaml":

@@ -2,13 +2,14 @@ package logic
 
 import (
 	"fmt"
+
 	"github.com/hedzr/cmdr"
 	"syreclabs.com/go/faker"
 )
 
 func genFinance(root *cmdr.RootCmdOpt) {
 
-	cc := root.NewSubCommand("finance", "f", "fin").
+	cc := cmdr.NewSubCmd().Titles("finance", "f", "fin").
 		Description("generate Finance names (visa, mastercard, ...)").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
@@ -28,7 +29,8 @@ func genFinance(root *cmdr.RootCmdOpt) {
 				fmt.Printf("{ \"finance\": { \"%s\": \"%v\" } }\n", typ, oo.CreditCard(typ))
 			}
 			return
-		})
+		}).
+		AttachTo(root)
 
 	cmdr.NewBool(true).
 		Titles("visa", "v").

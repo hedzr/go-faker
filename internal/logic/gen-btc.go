@@ -2,6 +2,7 @@ package logic
 
 import (
 	"fmt"
+
 	"github.com/hedzr/cmdr"
 	"syreclabs.com/go/faker"
 )
@@ -17,10 +18,10 @@ func genBitcoin(root *cmdr.RootCmdOpt) {
 		"address": {"Address", oo.Address, "a", []string{"addr"}},
 		"string":  {"String", oo.String, "ss", []string{}},
 	}
-	//sb.WriteString(fmt.Sprintf("    Address             : %v\n", oo.Address())) // => "Alphazap"
-	//sb.WriteString(fmt.Sprintf("    String              : %v\n", oo.String()))  // => "Tempsoft 4.51"
+	// sb.WriteString(fmt.Sprintf("    Address             : %v\n", oo.Address())) // => "Alphazap"
+	// sb.WriteString(fmt.Sprintf("    String              : %v\n", oo.String()))  // => "Tempsoft 4.51"
 
-	cc := root.NewSubCommand("bitcoin", "btc").
+	cc := cmdr.NewSubCmd().Titles("bitcoin", "btc").
 		Description("generate Bitcoin (BTC) names").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
@@ -28,7 +29,8 @@ func genBitcoin(root *cmdr.RootCmdOpt) {
 			str := dumpIt(cmd, m)
 			outputWithFormat(str, "Bitcoin")
 			return
-		})
+		}).
+		AttachTo(root)
 	for k, v := range m {
 		cmdr.NewBool().
 			Titles(k, v.short, v.aliases...).

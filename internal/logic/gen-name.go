@@ -2,6 +2,7 @@ package logic
 
 import (
 	"fmt"
+
 	"github.com/hedzr/cmdr"
 	"syreclabs.com/go/faker"
 )
@@ -23,15 +24,15 @@ func genName(root *cmdr.RootCmdOpt) {
 		"string":     {"String", oo.String, "ss", []string{}},
 	}
 
-	//faker.Name().Name()      // => "Natasha Hartmann"
-	//faker.Name().FirstName() // => "Carolina"
-	//faker.Name().LastName()  // => "Kohler"
-	//faker.Name().Prefix()    // => "Dr."
-	//faker.Name().Suffix()    // => "Jr."
-	//faker.Name().Title()     // => "Chief Functionality Orchestrator"
-	//faker.Name().String()    // String is an alias for Name.
+	// faker.Name().Name()      // => "Natasha Hartmann"
+	// faker.Name().FirstName() // => "Carolina"
+	// faker.Name().LastName()  // => "Kohler"
+	// faker.Name().Prefix()    // => "Dr."
+	// faker.Name().Suffix()    // => "Jr."
+	// faker.Name().Title()     // => "Chief Functionality Orchestrator"
+	// faker.Name().String()    // String is an alias for Name.
 
-	cc := root.NewSubCommand("name", "n").
+	cc := cmdr.NewSubCmd().Titles("name", "n").
 		Description("generate Name").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
@@ -39,7 +40,8 @@ func genName(root *cmdr.RootCmdOpt) {
 			str := dumpIt(cmd, m)
 			outputWithFormat(str, "Name")
 			return
-		})
+		}).
+		AttachTo(root)
 	for k, v := range m {
 		cmdr.NewBool().
 			Titles(k, v.short, v.aliases...).

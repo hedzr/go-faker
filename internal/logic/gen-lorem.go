@@ -2,6 +2,7 @@ package logic
 
 import (
 	"fmt"
+
 	"github.com/hedzr/cmdr"
 	"syreclabs.com/go/faker"
 )
@@ -34,13 +35,13 @@ func genLorem(root *cmdr.RootCmdOpt) {
 		}, "ss", []string{}},
 	}
 
-	//faker.Lorem().Character()    // => "c"
-	//faker.Lorem().Characters(17) // => "wqFyJIrXYfVP7cL9M"
-	//faker.Lorem().Word()         // => "veritatis"
-	//faker.Lorem().Words(3)       // => []string{"omnis", "libero", "neque"}
-	//faker.Lorem().Sentence(3)    // => "Necessitatibus sit autem."
+	// faker.Lorem().Character()    // => "c"
+	// faker.Lorem().Characters(17) // => "wqFyJIrXYfVP7cL9M"
+	// faker.Lorem().Word()         // => "veritatis"
+	// faker.Lorem().Words(3)       // => []string{"omnis", "libero", "neque"}
+	// faker.Lorem().Sentence(3)    // => "Necessitatibus sit autem."
 
-	cc := root.NewSubCommand("lorem", "l").
+	cc := cmdr.NewSubCmd().Titles("lorem", "l").
 		Description("generate Lorem text").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
@@ -48,20 +49,21 @@ func genLorem(root *cmdr.RootCmdOpt) {
 			str := dumpIt(cmd, m)
 			outputWithFormat(str, "Lorem")
 			return
-		})
+		}).
+		AttachTo(root)
 
 	cmdr.NewInt(17).
 		Titles("length", "l", "len").
 		Group("").
 		Placeholder("N").
-		//Range(1,64).
+		// Range(1,64).
 		Description("characters length").
 		AttachTo(cc)
 	cmdr.NewInt(3).
 		Titles("count", "C", "cnt").
 		Group("").
 		Placeholder("N").
-		//Range(1,64).
+		// Range(1,64).
 		Description("words count").
 		AttachTo(cc)
 

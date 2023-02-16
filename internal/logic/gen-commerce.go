@@ -2,6 +2,7 @@ package logic
 
 import (
 	"fmt"
+
 	"github.com/hedzr/cmdr"
 	"syreclabs.com/go/faker"
 )
@@ -20,12 +21,12 @@ func genCommerce(root *cmdr.RootCmdOpt) {
 		"color":        {"Color", oo.Color, "c", []string{}},
 	}
 
-	//sb.WriteString(fmt.Sprintf("    ProductName        : %v\n", oo.ProductName()))
-	//sb.WriteString(fmt.Sprintf("    Department         : %v\n", oo.Department()))
-	//sb.WriteString(fmt.Sprintf("    Price              : %v\n", oo.Price()))
-	//sb.WriteString(fmt.Sprintf("    Color              : %v\n", oo.Color()))
+	// sb.WriteString(fmt.Sprintf("    ProductName        : %v\n", oo.ProductName()))
+	// sb.WriteString(fmt.Sprintf("    Department         : %v\n", oo.Department()))
+	// sb.WriteString(fmt.Sprintf("    Price              : %v\n", oo.Price()))
+	// sb.WriteString(fmt.Sprintf("    Color              : %v\n", oo.Color()))
 
-	cc := root.NewSubCommand("commerce", "cc").
+	cc := cmdr.NewSubCmd().Titles("commerce", "cc").
 		Description("generate Commerce names").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
@@ -33,7 +34,8 @@ func genCommerce(root *cmdr.RootCmdOpt) {
 			str := dumpIt(cmd, m)
 			outputWithFormat(str, "Commerce")
 			return
-		})
+		}).
+		AttachTo(root)
 	for k, v := range m {
 		cmdr.NewBool().
 			Titles(k, v.short, v.aliases...).

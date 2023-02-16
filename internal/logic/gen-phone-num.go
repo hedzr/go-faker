@@ -2,18 +2,19 @@ package logic
 
 import (
 	"fmt"
+
 	"github.com/hedzr/cmdr"
 	"syreclabs.com/go/faker"
 )
 
 func genPhoneNumber(root *cmdr.RootCmdOpt) {
 	oo := faker.PhoneNumber()
-	//faker.PhoneNumber().PhoneNumber()       // => "1-599-267-6597 x537"
-	//faker.PhoneNumber().CellPhone()         // => "+49-131-0003060"
-	//faker.PhoneNumber().AreaCode()          // => "903"
-	//faker.PhoneNumber().ExchangeCode()      // => "574"
-	//faker.PhoneNumber().SubscriberNumber(4) // => "1512"
-	//faker.PhoneNumber().String()            // String is an alias for PhoneNumber.
+	// faker.PhoneNumber().PhoneNumber()       // => "1-599-267-6597 x537"
+	// faker.PhoneNumber().CellPhone()         // => "+49-131-0003060"
+	// faker.PhoneNumber().AreaCode()          // => "903"
+	// faker.PhoneNumber().ExchangeCode()      // => "574"
+	// faker.PhoneNumber().SubscriberNumber(4) // => "1512"
+	// faker.PhoneNumber().String()            // String is an alias for PhoneNumber.
 	m := map[string]struct {
 		label   string
 		fn      func() string
@@ -28,7 +29,7 @@ func genPhoneNumber(root *cmdr.RootCmdOpt) {
 		"subscriber-number": {"SubscriberNumber", func() string { return fmt.Sprintf("%v", oo.SubscriberNumber(cmdr.GetIntR("phone-number.count"))) }, "sn", []string{}},
 	}
 
-	cc := root.NewSubCommand("phone-number", "pn").
+	cc := cmdr.NewSubCmd().Titles("phone-number", "pn").
 		Description("generate PhoneNumber record").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
@@ -36,13 +37,14 @@ func genPhoneNumber(root *cmdr.RootCmdOpt) {
 			str := dumpIt(cmd, m)
 			outputWithFormat(str, "PhoneNumber")
 			return
-		})
+		}).
+		AttachTo(root)
 
 	cmdr.NewInt(5).
 		Titles("count", "C", "cnt").
 		Group("").
 		Placeholder("N").
-		//Range(1,64).
+		// Range(1,64).
 		Description("number count for these fields: NumberXXX, Hexadecimal").
 		AttachTo(cc)
 
