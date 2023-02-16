@@ -1,0 +1,17 @@
+app:
+  bgo:
+    build:
+      os: [ darwin ]
+      arch: [ amd64 ]
+      projects:
+        000-default-group:
+          items:
+            app:
+              dir: cli/app/cli/app
+              package: github.com/hedzr/go-faker/cli/app/cli/app
+              keep-workdir: true
+      output:
+        dir: ./bin
+        named-as: '{{.AppName}}-{{.OS}}-{{.ARCH}}'
+      excludes: [ study*, test* ]
+      saved-as: bgo.yml
