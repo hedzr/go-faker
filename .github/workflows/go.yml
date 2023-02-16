@@ -127,26 +127,24 @@ jobs:
           #VERSION:
         run: |
           IMAGE_NAME="${GITHUB_REPOSITORY##*/}"
-          IMAGE_NAME=$(echo $IMAGE_NAME | sed 's/^(go-)//' | sed 's/(-go)$//' | tr '[:upper:]' '[:lower:]')
+          IMAGE_NAME=$(echo $IMAGE_NAME | sed -re 's/^(go-)//' | sed -re 's/(-go)$//' | tr '[:upper:]' '[:lower:]')
           if [ $IMAGE_NAME = "cmdrstarter" ]; then IMAGE_NAME=your-starter; fi
           ACTOR=$(echo $GITHUB_ACTOR | tr '[:upper:]' '[:lower:]')
-          #
+
           IMAGE_TAG=${GITHUB_REF#*/}
           IMAGE_TAG=${IMAGE_TAG#*/}
           IMAGE_TAG=$(echo $IMAGE_TAG | sed -e "s#^v##")
           echo "Using IMAGE_NAME: $IMAGE_NAME"
           echo "Using IMAGE_TAG: $IMAGE_TAG"
           echo "Using ACTOR: $ACTOR"
-          which git
-          which date
-          #
-          TIMESTAMP="$(date -u -Iseconds)"
-          TIMEZONE="$(cat /etc/timezone)"
-          GIT_VERSION="$(git describe --tags --abbrev=0 2>/dev/null || echo "$VERSION")"
-          GIT_REVISION="$(git rev-parse --short HEAD)"
-          GIT_SUMMARY="$(git describe --tags --dirty --always)"
-          GIT_DESC="$(git log --oneline -1)"
-          BUILDER_COMMENT=""
+
+          export TIMESTAMP="$(date -u -Iseconds)"
+          export TIMEZONE="$(cat /etc/timezone)"
+          export GIT_VERSION="$(git describe --tags --abbrev=0 2>/dev/null || echo "$VERSION")"
+          export GIT_REVISION="$(git rev-parse --short HEAD)"
+          export GIT_SUMMARY="$(git describe --tags --dirty --always)"
+          export GIT_DESC="$(git log --oneline -1)"
+          export BUILDER_COMMENT=""
           #
           # export VERSION="$(grep -E "Version[ \t]+=[ \t]+" doc.go|grep -Eo "[0-9.]+")"
           docker build -f app.Dockerfile \
