@@ -26,18 +26,17 @@ $ {{.AppName}} gen man
 $ {{.AppName}} --help
   show help screen.
 `
-	overview = ``
+	// overview = ``
 
-	zero = 0
+	// zero = 0
 
-	defaultTraceEnabled  = true
+	// defaultTraceEnabled  = true
 	defaultDebugEnabled  = true
 	defaultLoggerBackend = "logrus"
 	defaultLoggerLevel   = "debug"
 )
 
 func Entry() {
-
 	if err := cmdr.Exec(buildRootCmd(),
 		// trace.WithTraceEnable(defaultTraceEnabled),
 		cmdr.WithUnhandledErrorHandler(onUnhandledErrorHandler),

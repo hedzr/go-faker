@@ -5,7 +5,6 @@ import "github.com/hedzr/cmdr"
 var optHideGenerateCmd, optAddTraceOption cmdr.ExecOption
 
 func init() {
-
 	// hide generate command
 	optHideGenerateCmd = cmdr.WithXrefBuildingHooks(nil, func(root *cmdr.RootCommand, args []string) {
 		if cc := cmdr.FindSubCommand("generate", &root.Command); cc != nil {
@@ -19,6 +18,8 @@ func init() {
 		cmdr.NewBool(false).
 			Titles("trace", "tr").
 			Description("enable trace mode for tcp/mqtt send/recv data dump", "").
+			Group(cmdr.SysMgmtGroup).
+			EnvKeys("TRACE").
 			AttachToRoot(root)
 	}, nil)
 
