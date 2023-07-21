@@ -67,13 +67,13 @@ RUN echo "Using GOPROXY=$GOPROXY" \
 RUN export GOVER=$(go version) \
     && export VERSION="$(grep -E 'Version[ \t]+=[ \t]+' ./cli/app/doc.go|grep -Eo '[0-9.]+')" \
     && export LDFLAGS="-s -w \
-        	-X \"$W_PKG.Buildstamp=$BUILDTIME\" -X \"$W_PKG.Githash=$GIT_REVISION\" \
-        	-X \"$W_PKG.Version=$VERSION\" -X \"$W_PKG.GoVersion=$GOVER\" " \
+    -X \"$W_PKG.Buildstamp=$BUILDTIME\" -X \"$W_PKG.Githash=$GIT_REVISION\" \
+    -X \"$W_PKG.Version=$VERSION\" -X \"$W_PKG.GoVersion=$GOVER\" " \
     && echo "Using APPNAME=$APPNAME VERSION=$VERSION" \
     && git config --global --add safe.directory /var/lib/faker \
     && CGO_ENABLED=0 go build -v -tags docker -tags k8s,istio -tags cmdr-apps \
-       -ldflags "$LDFLAGS" \
-       -o $TGT/var/lib/$APPNAME/$APPNAME ./cli/app/cli/app
+    -ldflags "$LDFLAGS" \
+    -o $TGT/var/lib/$APPNAME/$APPNAME ./cli/app/cli/app
 RUN ls -la $TGT $TGT/var/lib/$APPNAME $TGT/etc/$APPNAME \
     && $TGT/var/lib/$APPNAME/$APPNAME --version \
     && $TGT/var/lib/$APPNAME/$APPNAME --build-info
@@ -96,10 +96,10 @@ ARG APPNAME
 ARG VERSION
 ARG PORT
 
-LABEL com.hedzr.image.authors="hedzr <hedzrz@gmail.com>" \
-      com.hedzr.image.description="microservice docker image with hedzr/cmdr" \
-      description="microservice docker image with hedzr/cmdr" \
-      version="$VERSION"
+LABEL com.hedzr.image.authors="hedzr <hedzr@duck.com>" \
+    com.hedzr.image.description="generate faked dataset for your fuzzing tests - powered by hedzr/cmdr" \
+    description="generate faked dataset for your fuzzing tests - powered by hedzr/cmdr" \
+    version="$VERSION"
 
 # Import the user and group files from the builder.
 COPY --from=builder /etc/passwd /etc/passwd
