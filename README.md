@@ -27,7 +27,7 @@
 
 ## Features
 
-> 略略略
+> 略略略 v0.3.7
 
 The available commands are:
 
