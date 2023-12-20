@@ -9,7 +9,6 @@ github.com/hedzr/cmdr v1.11.26 h1:BdyNDiLFF3rzaHRJawzCgtcdYttLkRGoGnqT0KSMH/0=
 github.com/hedzr/cmdr v1.11.26/go.mod h1:EevQEKC4+WBqA3kQ3Le2lT66Xn3bINUfLU362uzxS7A=
 github.com/hedzr/cmdr-base v1.0.0 h1:6KY06e54o4mAkGf5MAHlCAuwH0X1xGIR6Hb+BjEfs1o=
 github.com/hedzr/cmdr-base v1.0.0/go.mod h1:c3vMkHa5PME2P2W8lE3T9+JX12tq9tmCUt6lXbmt5kI=
-github.com/hedzr/evendeep v0.4.17 h1:STAp07RP+xcAP2z/R7lVuZMqLNSll5mfub9P4eS6Qps=
 github.com/hedzr/evendeep v0.4.17/go.mod h1:IdeVmPe7LhYQGlQYKg379b7PzXGKGdwNE4xGouU4Cjg=
 github.com/hedzr/evendeep v0.4.19 h1:LhdjkOubI6hhgxSRr6lLnSsKGQHmgiX0Xf3Si28j+Mk=
 github.com/hedzr/evendeep v0.4.19/go.mod h1:dMrU40tAFhxd2Joxwh+Cgw5W5mKdw3jjWy3Sw2c5f2Y=
