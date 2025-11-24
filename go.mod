@@ -1,8 +1,6 @@
 module github.com/hedzr/go-faker
 
-go 1.23.0
-
-toolchain go1.23.3
+go 1.24.0
 
 //replace github.com/hedzr/log => ../../go-cmdr/10.log
 
@@ -30,8 +28,8 @@ require (
 	github.com/hedzr/logg v0.8.11 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.3 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
-	golang.org/x/crypto v0.37.0 // indirect
-	golang.org/x/net v0.39.0 // indirect
-	golang.org/x/sys v0.32.0 // indirect
-	golang.org/x/term v0.31.0 // indirect
+	golang.org/x/crypto v0.45.0 // indirect
+	golang.org/x/net v0.47.0 // indirect
+	golang.org/x/sys v0.38.0 // indirect
+	golang.org/x/term v0.37.0 // indirect
 )
